@@ -57,6 +57,11 @@ It might be worth restarting HA to see if anything has broken so far, if all's w
 Next create a new dashboard view, edit the raw yaml and paste in the contents of the file config_dashboard.yaml
 Save the new dashboard.
 
+![Screenshot 2025-08-23 at 2 51 24 pm](https://github.com/user-attachments/assets/2d797185-425e-4603-a261-b80f72c8d2b4)
+![Screenshot 2025-08-23 at 2 52 44 pm](https://github.com/user-attachments/assets/b7cf41d4-b311-4b1c-8f9e-3b484e80c526)
+![Screenshot 2025-08-23 at 2 53 41 pm](https://github.com/user-attachments/assets/adc874a9-a489-4ada-8888-277e42f32807)
+
+
 You should then have something that looks similar to this
 
 ![Screenshot 2025-08-23 at 2 21 54 pm](https://github.com/user-attachments/assets/17e99af5-a259-4335-8d7e-b26d53b32cac)
