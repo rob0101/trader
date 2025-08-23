@@ -4,6 +4,7 @@
 - have sensors for your own Amber buy and sell prices
 - have a Sigenergy home battery system with modbus enabled
 - have the TypQxQ "Sigenergy-Local-Modbus" integration installed
+- run the Sig system in Remote EMS mode, i.e. with Smartshift already permanently disabled.
 - be confident to have a go and assume all the risks of installing the files provided
 
 This collection of files provides tools to help run automated trading of electricity, e.g. sell from the battery at specific rates when price thresholds are crossed.
