@@ -1,364 +1,24 @@
+title: Amber and Sig
 views:
-  - type: sections
-    max_columns: 4
-    title: Status
-    path: raw
+  - title: Amber based Sig automations
+    path: settings
+    theme: default
+    icon: mdi:cog
+    type: sections
     sections:
       - type: grid
+        column_span: 10
         cards:
-          - type: heading
-            heading: Sigen Plant
-          - type: entities
-            entities:
-              - entity: select.sigen_plant_remote_ems_control_mode
-            state_color: true
-            grid_options:
-              columns: 21
-              rows: auto
-          - show_name: false
-            show_icon: true
-            show_state: false
-            type: glance
-            entities:
-              - entity: sun.sun
-              - entity: binary_sensor.sigen_plant_pv_generating
-                name: PV Generating
-                icon: mdi:solar-power
-              - entity: binary_sensor.sigen_plant_battery_charging
-                name: Battery charging
-                icon: mdi:battery-positive
-              - entity: binary_sensor.sigen_plant_battery_discharging
-                name: Battery discharging
-                icon: mdi:battery-negative
-              - entity: binary_sensor.sigen_plant_exporting_to_grid
-                name: Exporting to grid
-                icon: mdi:transmission-tower-import
-              - entity: binary_sensor.sigen_plant_importing_from_grid
-                name: Importing from grid
-                icon: mdi:transmission-tower-export
-            columns: 6
-            state_color: true
-          - type: entities
-            entities:
-              - entity: sensor.sigen_plant_ems_work_mode
-        column_span: 2
-      - type: grid
-        cards:
-          - type: heading
-            heading: Sigen Plant
-          - type: entity
-            entity: sensor.amber_true_five_minute_export_price
-            icon: dollar
-            grid_options:
-              columns: 8
-              rows: 2
-            name: FIT now
-          - type: entity
-            entity: number.export_rate_for_prices
-            icon: dollar
-            grid_options:
-              columns: 7
-              rows: 2
-          - type: entities
-            entities:
-              - entity: number.sigen_plant_grid_export_limitation
-                name: Max GRID export setting
-            grid_options:
-              columns: 21
-              rows: auto
-          - type: entities
-            entities:
-              - entity: input_number.trigger_price_for_30kw_exporting
-                name: Export @ 30kW for
-              - entity: input_number.trigger_price_for_15kw_exporting
-                name: Export @ 15kW for
-              - entity: input_number.trigger_price_for_10kw_exporting
-                name: Export @ 10kW for
-              - entity: input_number.trigger_price_for_5kw_exporting
-                name: Export @ 5kW for
-              - entity: input_number.trigger_price_for_1kw_exporting
-                name: Export @ 1kW for
-            grid_options:
-              columns: 21
-              rows: auto
-            title: Battery Exporting price to kW triggers
-            card_mod:
-              style: |
-                ha-card {
-                  color: orange !important;
-                }
-          - type: entities
-            entities:
-              - entity: number.sigen_plant_ess_backup_state_of_charge
-                icon: mdi:battery-40
-                name: Backup battery SOC
-              - entity: number.sigen_plant_ess_charge_cut_off_state_of_charge
-                icon: mdi:battery-40
-                name: Max battery charge SOC
-              - entity: number.sigen_plant_ess_discharge_cut_off_state_of_charge
-                icon: mdi:battery-40
-                name: Min battery discharge SOC
-              - entity: number.sigen_plant_ess_max_charging_limit
-                icon: mdi:lightning-bolt
-                name: Max ESS charge (battery)
-              - entity: number.sigen_plant_ess_max_discharging_limit
-                icon: mdi:lightning-bolt
-                name: Max ESS discharge (battery)
-            grid_options:
-              columns: 21
-              rows: auto
-            state_color: false
-          - type: entities
-            style: |
-              ha-card {
-                color: red;
-              }
-            entities:
-              - entity: number.sigen_plant_grid_import_limitation
-                icon: mdi:lightning-bolt
-                name: Max GRID import
-              - entity: number.sigen_plant_pcs_export_limitation
-                icon: mdi:lightning-bolt
-                name: Max PCS export (bat + solar)
-              - entity: number.sigen_plant_pcs_import_limitation
-                icon: mdi:lightning-bolt
-                name: Max PCS import  (bat + solar)
-              - entity: number.sigen_plant_pv_max_power_limit
-                icon: mdi:lightning-bolt
-                name: Max PV (solar allowed)
-            grid_options:
-              columns: 21
-              rows: auto
-        column_span: 2
-      - type: grid
-        cards:
-          - type: entities
-            entities:
-              - entity: sensor.sigen_plant_modbus_max_data_fetch_time_since_restart
-              - entity: sensor.sigen_plant_plant_active_power
-              - entity: sensor.sigen_plant_plant_running_state
-              - entity: binary_sensor.sigen_plant_pv_generating
-              - entity: sensor.sigen_plant_pv_power
-              - entity: sensor.sigen_plant_sigen_pv_power
-            grid_options:
-              columns: 18
-              rows: auto
           - type: heading
             heading_style: title
-            heading: Inverter
-            icon: mdi:lightning-bolt
-          - type: entities
-            entities:
-              - entity: sensor.sigen_inverter_accumulated_pv_energy
-              - entity: sensor.sigen_inverter_active_power
-              - entity: sensor.sigen_inverter_battery_average_cell_temperature
-              - entity: sensor.sigen_inverter_battery_power
-              - entity: sensor.sigen_inverter_battery_state_of_charge
-              - entity: sensor.sigen_inverter_battery_state_of_health
-              - entity: sensor.sigen_inverter_daily_charge_energy
-              - entity: sensor.sigen_inverter_daily_discharge_energy
-              - entity: sensor.sigen_inverter_daily_pv_energy
-              - entity: sensor.sigen_plant_ems_work_mode
-            grid_options:
-              columns: 18
-              rows: auto
-          - type: entities
-            entities:
-              - entity: sensor.sigen_plant_grid_active_power
-              - entity: sensor.sigen_plant_grid_connection_status
-              - entity: sensor.sigen_plant_grid_export_power
-              - entity: sensor.sigen_plant_grid_import_power
-              - entity: binary_sensor.sigen_plant_importing_from_grid
-              - entity: sensor.sigen_plant_daily_grid_import_energy_2
-              - entity: sensor.sigen_plant_daily_grid_export_energy_2
-            title: Grid
-            grid_options:
-              columns: 18
-              rows: auto
-        column_span: 2
-      - type: grid
-        cards:
-          - type: entities
-            entities:
-              - entity: sensor.sigen_inverter_pv1_accumulated_energy
-              - entity: sensor.sigen_inverter_pv1_current
-              - entity: sensor.sigen_inverter_pv1_daily_energy
-              - entity: sensor.sigen_inverter_pv1_power
-              - entity: sensor.sigen_inverter_pv1_voltage
-            title: PV1
-          - type: entities
-            entities:
-              - entity: sensor.sigen_inverter_pv3_accumulated_energy
-              - entity: sensor.sigen_inverter_pv3_current
-              - entity: sensor.sigen_inverter_pv3_daily_energy
-              - entity: sensor.sigen_inverter_pv3_power
-              - entity: sensor.sigen_inverter_pv3_voltage
-            title: PV3
-      - type: grid
-        cards:
-          - type: entities
-            entities:
-              - entity: sensor.sigen_inverter_pv2_accumulated_energy
-              - entity: sensor.sigen_inverter_pv2_current
-              - entity: sensor.sigen_inverter_pv2_daily_energy
-              - entity: sensor.sigen_inverter_pv2_power
-              - entity: sensor.sigen_inverter_pv2_voltage
-            title: PV2
-    badges:
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.sigen_inverter_battery_state_of_charge
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: input_number.my_sell_price
-        name: My Solar selling price
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: input_number.min_sell_price_from_battery
-        name: My battery selling price
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: input_number.my_buy_price
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: false
-        entity: switch.sigen_inverter_remote_ems_dispatch
-        name: Remote EMS Dispatch
-        tap_action:
-          action: none
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: number.surplus_predicted_energy_rest_of_today
-        name: Available after battery full
-        icon: mdi:battery-charging-100
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: number.sig_house_flow
-        name: House
-    icon: mdi:format-list-numbered
-    cards: []
-  - type: sections
-    max_columns: 4
-    title: Flow
-    path: flow
-    sections:
-      - type: grid
-        cards:
-          - type: custom:power-flow-card-plus
-            entities:
-              battery:
-                entity: sensor.sigen_inverter_battery_power
-                state_of_charge: sensor.sigen_energy_storage_system_soc
-                invert_state: true
-                use_metadata: false
-                display_state: one_way_no_zero
-              grid:
-                entity: sensor.sigen_plant_grid_active_power
-              solar:
-                entity: sensor.sigen_pv_power
-                display_zero_state: true
-              home:
-                entity: number.sig_house_flow
-                icon: mdi:home
-                secondary_info: {}
-                override_state: true
-              individual:
-                entity: sensor.zappi_power_flow
-                secondary_info: {}
-                icon: mdi:car
-                unit_of_measurement: KW
-                decimals: 1
-                show_direction: true
-                display_zero_state: true
-                name: EV
-            clickable_entities: true
-            display_zero_lines: false
-            use_new_flow_rate_model: true
-            w_decimals: 0
-            kw_decimals: 2
-            min_flow_rate: 0
-            max_flow_rate: 30
-            max_expected_power: 3000
-            min_expected_power: 0
-            watt_threshold: 1000
-            transparency_zero_lines: 0
-            sort_individual_devices: false
-          - type: entities
-            entities:
-              - entity: select.sigen_plant_remote_ems_control_mode
-            state_color: true
-            grid_options:
-              columns: 15
-              rows: auto
-          - type: custom:power-flow-card-plus
-            entities:
-              battery:
-                state_of_charge: sensor.sigen_plant_battery_state_of_charge
-                entity: sensor.sigen_plant_battery_power
-                invert_state: true
-              grid:
-                entity: number.sigenergy_net_grid_flow
-                secondary_info: {}
-              solar:
-                entity: sensor.sigen_inverter_pv_power
-                display_zero_state: true
-                secondary_info:
-                  entity: sensor.solcast_pv_forecast_forecast_remaining_today
-                  unit_of_measurement: kWh
-              home:
-                secondary_info: {}
-                entity: number.sig_house_flow
-              individual:
-                - entity: sensor.zappi_power_flow
-                  secondary_info:
-                    entity: number.km_of_range_added
-                    unit_of_measurement: km
-                  name: EV
-                  icon: mdi:car
-                  display_zero: true
-            clickable_entities: true
-            display_zero_lines:
-              mode: show
-              transparency: 50
-              grey_color:
-                - 189
-                - 189
-                - 189
-            use_new_flow_rate_model: true
-            w_decimals: 0
-            kw_decimals: 1
-            min_flow_rate: 0.75
-            max_flow_rate: 6
-            max_expected_power: 30000
-            min_expected_power: 0.01
-            watt_threshold: 1000
-            transparency_zero_lines: 0
-            sort_individual_devices: false
-            grid_options:
-              columns: full
-              rows: 6
-          - type: energy-distribution
-            link_dashboard: true
+            heading: Battery discharge setting by price
+            icon: mdi:lead-pencil
           - type: custom:power-flow-card-plus
             entities:
               battery:
                 entity:
                   consumption: number.sigen_plant_ess_max_discharging_limit
                   production: number.sigen_plant_ess_max_charging_limit
-                invert_state: true
               grid:
                 entity:
                   production: number.sigen_plant_pcs_import_limitation
@@ -380,743 +40,12 @@ views:
             grid_options:
               columns: 12
               rows: 6
-        column_span: 4
-    badges:
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: sensor.amber_true_five_minute_export_price
-        name: Sell price
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: sensor.amber_true_five_min_price_mqtt
-        name: Buy price
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: sensor.sigen_inverter_daily_pv_energy
-        name: Today
-      - type: entity
-        show_name: true
-        show_state: true
-        show_icon: true
-        entity: sensor.solcast_pv_forecast_forecast_remaining_today
-        name: kWh of solar to come
-  - title: EMS Control
-    icon: mdi:solar-power
-    cards:
-      - type: entities
-        entities:
-          - entity: sensor.sigen_plant_ems_work_mode
-          - type: divider
-          - entity: select.sigen_plant_remote_ems_control_mode
-          - entity: switch.sigen_plant_remote_ems_controled_by_home_assistant
-        title: Configurable EMS settings
-      - type: entities
-        entities:
-          - type: section
-            label: EMS must be set in Remote mode before changing values.
-          - type: divider
-          - entity: number.sigen_plant_ess_max_charging_limit
-          - entity: sensor.sigen_plant_available_max_charging_capacity
-            name: Applied ESS max charging limit
-            icon: mdi:battery-positive
-          - entity: sensor.sigen_plant_available_max_charging_power
-            name: Upper charging limit
-            icon: mdi:car-speed-limiter
-          - type: divider
-          - entity: number.sigen_plant_ess_max_discharging_limit
-          - entity: sensor.sigen_inverter_max_battery_discharge_power
-            name: Applied ESS max discharging limit
-            icon: mdi:battery-positive
-          - entity: sensor.sigen_plant_ess_rated_discharging_power
-            icon: mdi:car-speed-limiter
-            name: Upper discharging limit
-          - type: section
-            label: >-
-              This values are updatedonce every 10s by default. Deselect textbox
-              after changing the value to send it. If invalid value entered then
-              it will not be shown in applied.
-          - type: section
-            label: >-
-              When manually switching from Sigen AI, the AI will remain active,
-              but inverter operating mode will change. To revert to Sigen AI,
-              first disable AI mode, then re-enable it in app.
-        title: ESS limits
-      - chart_type: line
-        period: hour
-        type: statistics-graph
-        entities:
-          - sensor.sigen_plant_battery_state_of_charge
-        title: Battery SoC last 7 days
-        hide_legend: true
-        logarithmic_scale: false
-        stat_types:
-          - min
-          - max
-        days_to_show: 7
-      - chart_type: line
-        period: hour
-        type: statistics-graph
-        entities:
-          - sensor.sigen_plant_pv_power
-          - sensor.sigen_inverter_pv4_power
-          - sensor.sigen_inverter_pv2_power
-          - sensor.sigen_inverter_pv1_power
-          - sensor.sigen_inverter_pv3_power
-        stat_types:
-          - mean
-        days_to_show: 7
-        title: Solar production last 7 days
-        logarithmic_scale: false
-      - type: entities
-        entities:
-          - type: section
-            label: >-
-              EMS must be set in Remote mode (Home Assistant control) before
-              changing values. Note that these values are ignored when EMS
-              control mode is set to 'Maximum self-consumption (default)'.
-          - type: divider
-          - entity: number.sigen_plant_pv_max_power_limit
-        title: Solar production limit (kW)
-      - type: entities
-        entities:
-          - type: section
-            label: EMS = Energy Management System (Inverter)
-          - type: section
-            label: ESS = Energy Storage System (Battery)
-          - type: section
-            label: PCS = Power Conversion System (CheckWatt)
-            title: Glossary
-  - title: Home
-    icon: mdi:sun-compass
-    cards:
-      - show_name: false
-        show_icon: true
-        show_state: false
-        type: glance
-        entities:
-          - entity: sun.sun
-          - entity: binary_sensor.sigen_plant_pv_generating
-            name: PV Generating
-            icon: mdi:solar-power
-          - entity: binary_sensor.sigen_plant_battery_charging
-            name: Battery charging
-            icon: mdi:battery-positive
-          - entity: binary_sensor.sigen_plant_battery_discharging
-            name: Battery discharging
-            icon: mdi:battery-negative
-          - entity: binary_sensor.sigen_plant_exporting_to_grid
-            name: Exporting to grid
-            icon: mdi:transmission-tower-import
-          - entity: binary_sensor.sigen_plant_importing_from_grid
-            name: Importing from grid
-            icon: mdi:transmission-tower-export
-        columns: 6
-        state_color: true
-      - type: entities
-        entities:
-          - entity: sensor.sigen_plant_consumed_power
-            icon: mdi:home-lightning-bolt-outline
-            name: Consumed power
-          - entity: sensor.sigen_plant_pv_power
-            icon: mdi:solar-power
-            name: Solar power production
-          - entity: sensor.sigen_plant_battery_power
-            name: Battery charge / discharge
-            icon: mdi:battery-charging
-          - entity: sensor.sigen_plant_grid_import_power
-            name: Import from Grid
-            icon: mdi:transmission-tower-export
-          - entity: sensor.sigen_plant_grid_export_power
-            name: Export to Grid
-            icon: mdi:transmission-tower-import
-        title: Power
-      - type: vertical-stack
-        cards:
-          - type: gauge
-            entity: sensor.sigen_plant_battery_state_of_charge
-            min: 0
-            max: 100
-            severity:
-              green: 30
-              yellow: 10
-              red: 0
-            name: Battery
           - type: entities
             entities:
-              - entity: sensor.sigen_plant_battery_power
-                icon: mdi:battery-charging
-              - entity: sensor.sigen_inverter_battery_average_cell_temperature
-                name: Average cell temperature
-                secondary_info: none
-                icon: ''
-              - entity: sensor.sigen_inverter_pcs_internal_temperature
-                name: Inverter temperature
-                secondary_info: none
-      - type: entities
-        entities:
-          - entity: sensor.sigen_plant_daily_consumed_energy
-            name: Daily energy consumption
-            icon: mdi:home-lightning-bolt-outline
-          - entity: sensor.sigen_plant_daily_pv_energy
-            name: Daily solar production
-            icon: mdi:solar-power
-          - entity: sensor.sigen_inverter_daily_charge_energy
-            name: Daily battery charge
-            icon: mdi:battery-positive
-          - entity: sensor.sigen_inverter_daily_discharge_energy
-            icon: mdi:battery-negative
-            name: Daily battery discharge
-          - entity: sensor.sigen_plant_daily_grid_import_energy
-            name: 'Daily Energy import from Grid '
-            icon: mdi:transmission-tower-export
-          - entity: sensor.sigen_plant_daily_grid_export_energy
-            name: 'Daily Energy export to Grid '
-            icon: mdi:transmission-tower-import
-        title: Daily Energy
-      - type: entities
-        entities:
-          - entity: sensor.sigen_plant_accumulated_consumed_energy
-            name: Energy consumption
-            icon: mdi:home-lightning-bolt-outline
-          - entity: sensor.sigen_plant_accumulated_pv_energy
-            name: Solar production
-            icon: mdi:solar-power
-          - entity: sensor.sigen_plant_accumulated_battery_charge_energy
-            name: Battery charged
-            icon: mdi:battery-positive
-          - entity: sensor.sigen_plant_accumulated_battery_discharge_energy
-            name: Battery discharged
-            icon: mdi:battery-negative
-          - entity: sensor.sigen_plant_accumulated_grid_import_energy
-            name: 'Energy import from Grid '
-            icon: mdi:transmission-tower-export
-          - entity: sensor.sigen_plant_accumulated_grid_export_energy
-            name: 'Energy export to Grid '
-            icon: mdi:transmission-tower-import
-        title: Total Energy
-      - chart_type: line
-        period: 5minute
-        type: statistics-graph
-        entities:
-          - sensor.sigen_inverter_pv_power
-          - sensor.sigen_plant_battery_power
-          - sensor.sigen_plant_grid_import_power
-          - sensor.sigen_plant_grid_export_power
-          - sensor.sigen_plant_consumed_power
-        stat_types:
-          - mean
-        title: Power distribution last 24 hours
-        hide_legend: false
-        logarithmic_scale: false
-        days_to_show: 1
-      - chart_type: line
-        period: hour
-        type: statistics-graph
-        entities:
-          - sensor.sigen_plant_pv_power
-          - sensor.sigen_inverter_pv4_power
-          - sensor.sigen_inverter_pv1_power
-          - sensor.sigen_inverter_pv3_power
-          - sensor.sigen_inverter_pv2_power
-        stat_types:
-          - mean
-        days_to_show: 2
-        title: Solar production last 48h
-        logarithmic_scale: false
-      - type: energy-distribution
-        link_dashboard: true
-    badges:
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.sigen_plant_general_alarm_1
-        color: red
-        visibility:
-          - condition: state
-            entity: sensor.sigen_plant_general_alarm_1
-            state_not: No Alarm
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.sigen_plant_general_alarm_2
-        color: red
-        visibility:
-          - condition: state
-            entity: sensor.sigen_plant_general_alarm_2
-            state_not: No Alarm
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.sigen_plant_general_alarm_3
-        color: red
-        visibility:
-          - condition: state
-            entity: sensor.sigen_plant_general_alarm_3
-            state_not: No Alarm
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.sigen_plant_general_alarm_4
-        color: red
-        visibility:
-          - condition: state
-            entity: sensor.sigen_plant_general_alarm_4
-            state_not: No Alarm
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.sigen_plant_general_alarm_5
-        color: red
-        visibility:
-          - condition: state
-            entity: sensor.sigen_plant_general_alarm_5
-            state_not: No Alarm
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.sigen_inverter_alarm_1
-        color: red
-        visibility:
-          - condition: state
-            entity: sensor.sigen_inverter_alarm_1
-            state_not: No Alarm
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.sigen_inverter_alarm_2
-        color: red
-        visibility:
-          - condition: state
-            entity: sensor.sigen_inverter_alarm_2
-            state_not: No Alarm
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.sigen_inverter_alarm_3
-        color: red
-        visibility:
-          - condition: state
-            entity: sensor.sigen_inverter_alarm_3
-            state_not: No Alarm
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.sigen_inverter_alarm_4
-        color: red
-        visibility:
-          - condition: state
-            entity: sensor.sigen_inverter_alarm_4
-            state_not: No Alarm
-      - type: entity
-        show_name: false
-        show_state: true
-        show_icon: true
-        entity: sensor.sigen_inverter_alarm_5
-        color: red
-        visibility:
-          - condition: state
-            entity: sensor.sigen_inverter_alarm_5
-            state_not: No Alarm
-  - title: Calculated attributes
-    path: calculated-attributes
-    icon: mdi:calculator-variant
-    cards:
-      - type: entities
-        entities:
-          - entity: sensor.sigen_inverter_battery_power
-          - entity: sensor.sigen_plant_ess_rated_discharging_power
-          - entity: >-
-              sensor.sigen_inverter_dc_charger_dc_charger_current_charging_capacity_single_time
-        title: Calculated Battery values
-      - type: entities
-        entities:
-          - entity: sensor.sigen_plant_grid_active_power
-          - entity: sensor.sigen_inverter_daily_pv_energy
-          - entity: sensor.sigen_plant_grid_import_power
-          - entity: sensor.sigen_plant_grid_export_power
-          - entity: sensor.sigen_inverter_pv2_power
-          - entity: sensor.sigen_inverter_pv1_power
-          - entity: sensor.sigen_inverter_pv3_power
-          - entity: sensor.sigen_plant_consumed_power
-        title: Calculated Power values
-      - type: entities
-        entities:
-          - entity: binary_sensor.sigen_plant_pv_generating
-          - entity: binary_sensor.sigen_plant_battery_charging
-          - entity: binary_sensor.sigen_plant_battery_discharging
-          - entity: binary_sensor.sigen_plant_importing_from_grid
-          - entity: binary_sensor.sigen_plant_exporting_to_grid
-        title: Calculated states
-      - type: entities
-        entities:
-          - entity: sensor.sigen_plant_accumulated_consumed_energy
-          - entity: sensor.sigen_plant_accumulated_pv_energy
-          - entity: sensor.sigen_plant_accumulated_grid_export_energy
-          - entity: sensor.sigen_plant_accumulated_grid_import_energy
-        title: Calculated Accumulated Energy values
-      - type: entities
-        entities:
-          - entity: sensor.sigen_plant_daily_consumed_energy
-          - entity: sensor.sigen_inverter_daily_pv_energy
-          - entity: sensor.sigen_plant_daily_grid_export_energy_2
-          - entity: sensor.sigen_plant_daily_grid_import_energy_2
-        title: Calculated Daily Energy values
-  - title: Amber and Sig
-    views:
-      - title: Amber based Sig automations
-        path: settings
-        theme: default
-        icon: mdi:cog
-        type: sections
-        sections:
-          - type: grid
-            column_span: 10
-            cards:
-              - type: heading
-                heading_style: title
-                heading: Battery discharge setting by price
-                icon: mdi:lead-pencil
-              - type: custom:power-flow-card-plus
-                entities:
-                  battery:
-                    entity:
-                      consumption: number.sigen_plant_ess_max_discharging_limit
-                      production: number.sigen_plant_ess_max_charging_limit
-                  grid:
-                    entity:
-                      production: number.sigen_plant_pcs_import_limitation
-                      consumption: number.sigen_plant_grid_import_limitation
-                      unit_of_measurement: kW
-                  solar:
-                    entity: number.sigen_plant_pv_max_power_limit
-                    display_zero_state: true
-                clickable_entities: true
-                display_zero_lines:
-                  mode: show
-                  transparency: 50
-                  grey_color:
-                    - 189
-                    - 189
-                    - 189
-                min_flow_rate: 0
-                transparency_zero_lines: 0
-                grid_options:
-                  columns: 12
-                  rows: 6
-              - type: entities
-                entities:
-                  - entity: input_boolean.trader_divert_solar_enabled
-                    name: Divert spare solar to grid
-                  - entity: input_number.trader_solar_divert_sell_price
-                    name: Solar sell price
-                card_mod:
-                  style: >
-                    ha-card {  {% if
-                    is_state('binary_sensor.trader_solar_divert_conditions_met',
-                    'on') %}
-                      border-color: yellow;
-                      border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
-                      color: gray;
-                    {%endif%} }
-              - type: entities
-                entities:
-                  - entity: input_boolean.trader_sell_enabled_a
-                    name: Plan A
-                  - entity: input_number.trader_sell_price_a
-                    name: Sell price
-                  - entity: input_number.trader_export_rate_a
-                    name: Sell rate
-                  - entity: input_number.trader_soc_sell_to_a
-                    name: Sell down to
-                card_mod:
-                  style: >
-                    ha-card {  {% if is_state('sensor.trader_plan_letter','a')
-                    %}
-                      border-color: yellow;
-                      border-width: 8px;
-                    {% elif
-                    is_state('input_boolean.trader_sell_enabled_b','Off') %}
-                      color: gray;
-                    {%endif%} }
-              - type: entities
-                entities:
-                  - entity: input_boolean.trader_sell_enabled_b
-                    name: Plan B
-                  - entity: input_number.trader_sell_price_b
-                    name: Sell price
-                  - entity: input_number.trader_export_rate_b
-                    name: Sell rate
-                  - entity: input_number.trader_soc_sell_to_b
-                    name: Sell down to
-                card_mod:
-                  style: >
-                    ha-card {  {% if is_state('sensor.trader_plan_letter','b')
-                    %}
-                      border-color: yellow;
-                      border-width: 8px;
-                    {% elif
-                    is_state('input_boolean.trader_sell_enabled_b','Off') %}
-                      color: gray;
-                    {% endif %} }
-              - type: entities
-                entities:
-                  - entity: input_boolean.trader_sell_enabled_c
-                    name: Plan C
-                  - entity: input_number.trader_sell_price_c
-                    name: Sell price
-                  - entity: input_number.trader_export_rate_c
-                    name: Sell rate
-                  - entity: input_number.trader_soc_sell_to_c
-                    name: Sell down to
-                card_mod:
-                  style: >
-                    ha-card {  {% if is_state('sensor.trader_plan_letter','c')
-                    %}
-                      border-color: yellow;
-                      border-width: 8px;
-                    {% elif
-                    is_state('input_boolean.trader_sell_enabled_c','Off') %}
-                      color: gray;
-                    {% endif %} }
-              - type: entities
-                entities:
-                  - entity: input_boolean.trader_sell_enabled_d
-                    name: Plan D
-                  - entity: input_number.trader_sell_price_d
-                    name: Sell price
-                  - entity: input_number.trader_export_rate_d
-                    name: Sell rate
-                  - entity: input_number.trader_soc_sell_to_d
-                    name: Sell down to
-                card_mod:
-                  style: >
-                    ha-card {  {% if is_state('sensor.trader_plan_letter','d')
-                    %}
-                      border-color: yellow;
-                      border-width: 8px;
-                    {% elif
-                    is_state('input_boolean.trader_sell_enabled_d','Off') %}
-                      color: gray;
-                    {% endif %} }
-              - type: entities
-                entities:
-                  - entity: input_boolean.trader_sell_enabled_e
-                    name: Plan E
-                  - entity: input_number.trader_sell_price_e
-                    name: Sell price
-                  - entity: input_number.trader_export_rate_e
-                    name: Sell rate
-                  - entity: input_number.trader_soc_sell_to_e
-                    name: Sell down to
-                card_mod:
-                  style: >
-                    ha-card {    {% if is_state('sensor.trader_plan_letter',
-                    'e') %}
-                      border-color: yellow;
-                      border-width: 8px;
-                    {% elif
-                    is_state('input_boolean.trader_sell_enabled_e','Off') %}
-                      color: gray;
-                    {% endif %} }
-              - type: entities
-                entities:
-                  - entity: input_number.trader_export_rate_z
-                    name: Sell rate
-                title: No battery exporting (Plan Z)
-                card_mod:
-                  style: >
-                    ha-card {  {% if is_state('sensor.trader_plan_letter','z')
-                    %}
-                      border-color: yellow;
-                      border-width: 8px;
-                    {% endif %} }
-              - type: entities
-                title: Options
-                entities:
-                  - entity: input_boolean.trader_enable_auto_change_export_limit
-                    name: Automate changes to Export Limit
-                  - entity: input_boolean.trader_increase_export_rate_by_solar
-                    name: Increase Export Rate to include solar
-                  - entity: input_boolean.trader_enable_auto_selling_from_battery
-                    name: Allow Command Discharging (PV first)
-      - title: Debug
-        path: badges
-        theme: default
-        type: sections
-        sections:
-          - type: grid
-            cards:
-              - type: heading
-                heading: Debug
-                icon: mdi:lead-pencil
-              - type: entities
-                entities:
-                  - entity: sensor.trader_sell_price
-                  - entity: sensor.trader_buy_price
-                  - entity: input_number.trader_solar_divert_sell_price
-                  - entity: sensor.trader_spare_solar
-                  - entity: sensor.trader_plan_letter
-                  - entity: sensor.trader_battery_discharge_rate_chosen_from_plan
-                  - entity: sensor.trader_stop_at_soc
-                  - entity: input_boolean.trader_increase_export_rate_by_solar
-                  - entity: select.sigen_plant_remote_ems_control_mode
-                  - entity: sensor.trader_mode
-                  - entity: binary_sensor.trader_exporting_criteria_met
-                  - entity: sensor.trader_cheapest_buy_price
-                  - entity: binary_sensor.trader_grid_price_negative
-                  - entity: sensor.my_amber_sell_price_sensor
-                  - entity: sensor.my_amber_buy_price_sensor
-                  - entity: input_boolean.trader_divert_solar_enabled
-                  - entity: binary_sensor.trader_solar_divert_conditions_met
-                  - entity: sensor.sigen_plant_battery_state_of_charge
-                  - entity: number.sigen_plant_ess_charge_cut_off_state_of_charge
-      - title: Logs
-        path: logs
-        theme: default
-        type: sections
-        sections:
-          - type: grid
-            column_span: 10
-            cards:
-              - type: heading
-                heading_style: title
-                heading: Logs
-                icon: mdi:lead-pencil
-              - type: logbook
-                target:
-                  entity_id:
-                    - sensor.trader_stop_at_soc
-                    - sensor.trader_plan_letter
-                    - input_boolean.trader_enable_auto_selling_from_battery
-                    - input_boolean.trader_increase_export_rate_by_solar
-                    - sensor.trader_battery_discharge_rate_chosen_from_plan
-                    - input_boolean.trader_enable_auto_change_export_limit
-                    - binary_sensor.trader_exporting_criteria_met
-                    - sensor.trader_mode
-                    - binary_sensor.trader_grid_price_negative
-                    - number.sigen_plant_pv_max_power_limit
-                    - number.sigen_plant_grid_export_limitation
-                    - sensor.trader_buy_price
-                    - sensor.trader_sell_price
-                    - input_boolean.trader_divert_solar_enabled
-                    - binary_sensor.trader_solar_divert_conditions_met
-                    - sensor.sigen_plant_battery_state_of_charge
-                    - number.sigen_plant_ess_charge_cut_off_state_of_charge
-                grid_options:
-                  columns: full
-    cards: []
-    type: sections
-    sections:
-      - type: grid
-        cards:
-          - type: heading
-            heading: Plans
-            heading_style: title
-          - type: entities
-            entities:
-              - input_boolean.trader_sell_enabled_a
-              - input_number.trader_sell_price_a
-              - input_number.trader_export_rate_a
-              - input_number.trader_soc_sell_to_a
-            title: Plan A
-            card_mod:
-              style: |
-                ha-card {  {% if is_state('sensor.trader_plan_letter','a') %}
-                  border-color: yellow;
-                  border-width: 8px;
-                {% elif is_state('input_boolean.trader_sell_enabled_b','Off') %}
-                  color: gray;
-                {%endif%} }
-          - type: entities
-            entities:
-              - input_boolean.trader_sell_enabled_b
-              - input_number.trader_sell_price_b
-              - input_number.trader_export_rate_b
-              - input_number.trader_soc_sell_to_b
-            title: Plan B
-            card_mod:
-              style: |
-                ha-card {  {% if is_state('sensor.trader_plan_letter','b') %}
-                  border-color: yellow;
-                  border-width: 8px;
-                {% elif is_state('input_boolean.trader_sell_enabled_b','Off') %}
-                  color: gray;
-                {%endif%} }
-          - type: entities
-            entities:
-              - input_boolean.trader_sell_enabled_c
-              - input_number.trader_sell_price_c
-              - input_number.trader_export_rate_c
-              - input_number.trader_soc_sell_to_c
-            title: Plan C
-            card_mod:
-              style: |
-                ha-card {  {% if is_state('sensor.trader_plan_letter','c') %}
-                  border-color: yellow;
-                  border-width: 8px;
-                {% elif is_state('input_boolean.trader_sell_enabled_c','Off') %}
-                  color: gray;
-                {%endif%} }
-          - type: entities
-            entities:
-              - input_boolean.trader_sell_enabled_d
-              - input_number.trader_sell_price_d
-              - input_number.trader_export_rate_d
-              - input_number.trader_soc_sell_to_d
-            title: Plan D
-            card_mod:
-              style: |
-                ha-card {  {% if is_state('sensor.trader_plan_letter','d') %}
-                  border-color: yellow;
-                  border-width: 8px;
-                {% elif is_state('input_boolean.trader_sell_enabled_d','Off') %}
-                  color: gray;
-                {%endif%} }
-          - type: entities
-            entities:
-              - input_boolean.trader_sell_enabled_e
-              - input_number.trader_sell_price_e
-              - input_number.trader_export_rate_e
-              - input_number.trader_soc_sell_to_e
-            title: Plan E
-            card_mod:
-              style: |
-                ha-card {  {% if is_state('sensor.trader_plan_letter','e') %}
-                  border-color: yellow;
-                  border-width: 8px;
-                {% elif is_state('input_boolean.trader_sell_enabled_e','Off') %}
-                  color: gray;
-                {%endif%} }
-          - type: entities
-            entities:
-              - entity: input_number.trader_export_rate_z
-            title: No battery exports (Plan Z)
-            card_mod:
-              style: |
-                ha-card {  {% if is_state('sensor.trader_plan_letter','z') %}
-                  border-color: yellow;
-                  border-width: 8px;
-                {%endif%} }
-          - type: entities
-            entities:
-              - input_boolean.trader_divert_solar_enabled
-              - input_number.trader_solar_divert_sell_price
-            title: Excess Solar Exports
+              - entity: input_boolean.trader_divert_solar_enabled
+                name: Divert spare solar to grid
+              - entity: input_number.trader_solar_divert_sell_price
+                name: Solar sell price
             card_mod:
               style: >
                 ha-card {  {% if
@@ -1128,135 +57,124 @@ views:
                 {%endif%} }
           - type: entities
             entities:
-              - entity: input_number.trader_prefer_grid_priced_under
-                name: Priced under
-            title: Use grid instead of battery
+              - entity: input_boolean.trader_sell_enabled_a
+                name: Plan A
+              - entity: input_number.trader_sell_price_a
+                name: Sell price
+              - entity: input_number.trader_export_rate_a
+                name: Sell rate
+              - entity: input_number.trader_soc_sell_to_a
+                name: Sell down to
             card_mod:
-              style: >
-                ha-card {  {% if
-                is_state('binary_sensor.trader_use_cheap_grid_not_battery',
-                'on') %}
+              style: |
+                ha-card {  {% if is_state('sensor.trader_plan_letter','a') %}
                   border-color: yellow;
-                  border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
+                  border-width: 8px;
+                {% elif is_state('input_boolean.trader_sell_enabled_b','Off') %}
                   color: gray;
                 {%endif%} }
-          - type: custom:power-flow-card-plus
-            entities:
-              battery:
-                entity:
-                  consumption: number.sigen_plant_ess_max_discharging_limit
-                  production: number.sigen_plant_ess_max_charging_limit
-              grid:
-                entity:
-                  production: number.sigen_plant_pcs_import_limitation
-                  consumption: number.sigen_plant_grid_import_limitation
-                  unit_of_measurement: kW
-              solar:
-                entity: number.sigen_plant_pv_max_power_limit
-                display_zero_state: true
-            clickable_entities: true
-            display_zero_lines:
-              mode: show
-              transparency: 50
-              grey_color:
-                - 189
-                - 189
-                - 189
-            min_flow_rate: 0
-            transparency_zero_lines: 0
-            grid_options:
-              columns: 12
-              rows: 6
           - type: entities
             entities:
-              - input_boolean.trader_enable_auto_change_export_limit
-              - input_boolean.trader_increase_export_rate_by_solar
-              - input_boolean.trader_enable_auto_selling_from_battery
-            title: Settings
-        column_span: 4
-      - type: grid
-        cards:
-          - type: custom:power-flow-card-plus
+              - entity: input_boolean.trader_sell_enabled_b
+                name: Plan B
+              - entity: input_number.trader_sell_price_b
+                name: Sell price
+              - entity: input_number.trader_export_rate_b
+                name: Sell rate
+              - entity: input_number.trader_soc_sell_to_b
+                name: Sell down to
+            card_mod:
+              style: |
+                ha-card {  {% if is_state('sensor.trader_plan_letter','b') %}
+                  border-color: yellow;
+                  border-width: 8px;
+                {% elif is_state('input_boolean.trader_sell_enabled_b','Off') %}
+                  color: gray;
+                {% endif %} }
+          - type: entities
             entities:
-              battery:
-                state_of_charge: sensor.sigen_plant_battery_state_of_charge
-                entity: sensor.sigen_plant_battery_power
-                invert_state: true
-              grid:
-                entity: number.sigenergy_net_grid_flow
-                secondary_info: {}
-              solar:
-                entity: sensor.sigen_inverter_pv_power
-                display_zero_state: true
-                secondary_info:
-                  entity: sensor.solcast_pv_forecast_forecast_remaining_today
-                  unit_of_measurement: kWh
-              home:
-                secondary_info: {}
-                entity: number.sig_house_flow
-              individual:
-                - entity: sensor.zappi_power_flow
-                  secondary_info:
-                    entity: number.km_of_range_added
-                    unit_of_measurement: km
-                  name: EV
-                  icon: mdi:car
-                  display_zero: true
-            clickable_entities: true
-            display_zero_lines:
-              mode: show
-              transparency: 50
-              grey_color:
-                - 189
-                - 189
-                - 189
-            use_new_flow_rate_model: true
-            w_decimals: 0
-            kw_decimals: 1
-            min_flow_rate: 0.75
-            max_flow_rate: 6
-            max_expected_power: 30000
-            min_expected_power: 0.01
-            watt_threshold: 1000
-            transparency_zero_lines: 0
-            sort_individual_devices: false
-            grid_options:
-              columns: 12
-              rows: 6
-        column_span: 2
-      - type: grid
-        cards:
-          - type: logbook
-            target:
-              entity_id:
-                - sensor.trader_stop_at_soc
-                - sensor.trader_plan_letter
-                - input_boolean.trader_enable_auto_selling_from_battery
-                - input_boolean.trader_increase_export_rate_by_solar
-                - sensor.trader_battery_discharge_rate_chosen_from_plan
-                - input_boolean.trader_enable_auto_change_export_limit
-                - binary_sensor.trader_exporting_criteria_met
-                - sensor.trader_mode
-                - binary_sensor.trader_grid_price_negative
-                - number.sigen_plant_pv_max_power_limit
-                - number.sigen_plant_grid_export_limitation
-                - sensor.trader_buy_price
-                - sensor.trader_sell_price
-                - input_boolean.trader_divert_solar_enabled
-                - binary_sensor.trader_solar_divert_conditions_met
-                - sensor.sigen_plant_battery_state_of_charge
-                - number.sigen_plant_ess_charge_cut_off_state_of_charge
-            grid_options:
-              columns: 45
-              rows: auto
-            hours_to_show: 2
-            title: Logs
-        column_span: 4
+              - entity: input_boolean.trader_sell_enabled_c
+                name: Plan C
+              - entity: input_number.trader_sell_price_c
+                name: Sell price
+              - entity: input_number.trader_export_rate_c
+                name: Sell rate
+              - entity: input_number.trader_soc_sell_to_c
+                name: Sell down to
+            card_mod:
+              style: |
+                ha-card {  {% if is_state('sensor.trader_plan_letter','c') %}
+                  border-color: yellow;
+                  border-width: 8px;
+                {% elif is_state('input_boolean.trader_sell_enabled_c','Off') %}
+                  color: gray;
+                {% endif %} }
+          - type: entities
+            entities:
+              - entity: input_boolean.trader_sell_enabled_d
+                name: Plan D
+              - entity: input_number.trader_sell_price_d
+                name: Sell price
+              - entity: input_number.trader_export_rate_d
+                name: Sell rate
+              - entity: input_number.trader_soc_sell_to_d
+                name: Sell down to
+            card_mod:
+              style: |
+                ha-card {  {% if is_state('sensor.trader_plan_letter','d') %}
+                  border-color: yellow;
+                  border-width: 8px;
+                {% elif is_state('input_boolean.trader_sell_enabled_d','Off') %}
+                  color: gray;
+                {% endif %} }
+          - type: entities
+            entities:
+              - entity: input_boolean.trader_sell_enabled_e
+                name: Plan E
+              - entity: input_number.trader_sell_price_e
+                name: Sell price
+              - entity: input_number.trader_export_rate_e
+                name: Sell rate
+              - entity: input_number.trader_soc_sell_to_e
+                name: Sell down to
+            card_mod:
+              style: |
+                ha-card {    {% if is_state('sensor.trader_plan_letter', 'e') %}
+                  border-color: yellow;
+                  border-width: 8px;
+                {% elif is_state('input_boolean.trader_sell_enabled_e','Off') %}
+                  color: gray;
+                {% endif %} }
+          - type: entities
+            entities:
+              - entity: input_number.trader_export_rate_z
+                name: Sell rate
+            title: No battery exporting (Plan Z)
+            card_mod:
+              style: |
+                ha-card {  {% if is_state('sensor.trader_plan_letter','z') %}
+                  border-color: yellow;
+                  border-width: 8px;
+                {% endif %} }
+          - type: entities
+            title: Options
+            entities:
+              - entity: input_boolean.trader_enable_auto_change_export_limit
+                name: Automate changes to Export Limit
+              - entity: input_boolean.trader_increase_export_rate_by_solar
+                name: Increase Export Rate to include solar
+              - entity: input_boolean.trader_enable_auto_selling_from_battery
+                name: Allow Command Discharging (PV first)
+  - title: Debug
+    path: badges
+    theme: default
+    type: sections
+    sections:
       - type: grid
         cards:
           - type: heading
             heading: Debug
-            heading_style: title
+            icon: mdi:lead-pencil
           - type: entities
             entities:
               - entity: sensor.trader_sell_price
@@ -1278,8 +196,300 @@ views:
               - entity: binary_sensor.trader_solar_divert_conditions_met
               - entity: sensor.sigen_plant_battery_state_of_charge
               - entity: number.sigen_plant_ess_charge_cut_off_state_of_charge
-              - entity: sensor.trader_battery_discharge_rate_chosen_from_plan
+  - title: Logs
+    path: logs
+    theme: default
+    type: sections
+    sections:
+      - type: grid
+        column_span: 10
+        cards:
+          - type: heading
+            heading_style: title
+            heading: Logs
+            icon: mdi:lead-pencil
+          - type: logbook
+            target:
+              entity_id:
+                - sensor.trader_stop_at_soc
+                - sensor.trader_plan_letter
+                - input_boolean.trader_enable_auto_selling_from_battery
+                - input_boolean.trader_increase_export_rate_by_solar
+                - sensor.trader_battery_discharge_rate_chosen_from_plan
+                - input_boolean.trader_enable_auto_change_export_limit
+                - binary_sensor.trader_exporting_criteria_met
+                - sensor.trader_mode
+                - binary_sensor.trader_grid_price_negative
+                - number.sigen_plant_pv_max_power_limit
+                - number.sigen_plant_grid_export_limitation
+                - sensor.trader_buy_price
+                - sensor.trader_sell_price
+                - input_boolean.trader_divert_solar_enabled
+                - binary_sensor.trader_solar_divert_conditions_met
+                - sensor.sigen_plant_battery_state_of_charge
+                - number.sigen_plant_ess_charge_cut_off_state_of_charge
             grid_options:
-              columns: 21
-              rows: auto
-        column_span: 4
+              columns: full
+cards: []
+type: sections
+sections:
+  - type: grid
+    cards:
+      - type: heading
+        heading: Plans
+        heading_style: title
+      - type: entities
+        entities:
+          - input_boolean.trader_sell_enabled_a
+          - input_number.trader_sell_price_a
+          - input_number.trader_export_rate_a
+          - input_number.trader_soc_sell_to_a
+        title: Plan A
+        card_mod:
+          style: |
+            ha-card {  {% if is_state('sensor.trader_plan_letter','a') %}
+              border-color: yellow;
+              border-width: 8px;
+            {% elif is_state('input_boolean.trader_sell_enabled_b','Off') %}
+              color: gray;
+            {%endif%} }
+      - type: entities
+        entities:
+          - input_boolean.trader_sell_enabled_b
+          - input_number.trader_sell_price_b
+          - input_number.trader_export_rate_b
+          - input_number.trader_soc_sell_to_b
+        title: Plan B
+        card_mod:
+          style: |
+            ha-card {  {% if is_state('sensor.trader_plan_letter','b') %}
+              border-color: yellow;
+              border-width: 8px;
+            {% elif is_state('input_boolean.trader_sell_enabled_b','Off') %}
+              color: gray;
+            {%endif%} }
+      - type: entities
+        entities:
+          - input_boolean.trader_sell_enabled_c
+          - input_number.trader_sell_price_c
+          - input_number.trader_export_rate_c
+          - input_number.trader_soc_sell_to_c
+        title: Plan C
+        card_mod:
+          style: |
+            ha-card {  {% if is_state('sensor.trader_plan_letter','c') %}
+              border-color: yellow;
+              border-width: 8px;
+            {% elif is_state('input_boolean.trader_sell_enabled_c','Off') %}
+              color: gray;
+            {%endif%} }
+      - type: entities
+        entities:
+          - input_boolean.trader_sell_enabled_d
+          - input_number.trader_sell_price_d
+          - input_number.trader_export_rate_d
+          - input_number.trader_soc_sell_to_d
+        title: Plan D
+        card_mod:
+          style: |
+            ha-card {  {% if is_state('sensor.trader_plan_letter','d') %}
+              border-color: yellow;
+              border-width: 8px;
+            {% elif is_state('input_boolean.trader_sell_enabled_d','Off') %}
+              color: gray;
+            {%endif%} }
+      - type: entities
+        entities:
+          - input_boolean.trader_sell_enabled_e
+          - input_number.trader_sell_price_e
+          - input_number.trader_export_rate_e
+          - input_number.trader_soc_sell_to_e
+        title: Plan E
+        card_mod:
+          style: |
+            ha-card {  {% if is_state('sensor.trader_plan_letter','e') %}
+              border-color: yellow;
+              border-width: 8px;
+            {% elif is_state('input_boolean.trader_sell_enabled_e','Off') %}
+              color: gray;
+            {%endif%} }
+      - type: entities
+        entities:
+          - entity: input_number.trader_export_rate_z
+        title: No battery exports (Plan Z)
+        card_mod:
+          style: |
+            ha-card {  {% if is_state('sensor.trader_plan_letter','z') %}
+              border-color: yellow;
+              border-width: 8px;
+            {%endif%} }
+      - type: entities
+        entities:
+          - input_boolean.trader_divert_solar_enabled
+          - input_number.trader_solar_divert_sell_price
+        title: Excess Solar Exports
+        card_mod:
+          style: >
+            ha-card {  {% if
+            is_state('binary_sensor.trader_solar_divert_conditions_met', 'on')
+            %}
+              border-color: yellow;
+              border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
+              color: gray;
+            {%endif%} }
+      - type: entities
+        entities:
+          - entity: input_number.trader_prefer_grid_priced_under
+            name: Priced under
+        title: Use grid instead of battery
+        card_mod:
+          style: >
+            ha-card {  {% if
+            is_state('binary_sensor.trader_use_cheap_grid_not_battery', 'on') %}
+              border-color: yellow;
+              border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
+              color: gray;
+            {%endif%} }
+      - type: custom:power-flow-card-plus
+        entities:
+          battery:
+            entity:
+              consumption: number.sigen_plant_ess_max_discharging_limit
+              production: number.sigen_plant_ess_max_charging_limit
+          grid:
+            entity:
+              production: number.sigen_plant_pcs_import_limitation
+              consumption: number.sigen_plant_grid_import_limitation
+              unit_of_measurement: kW
+          solar:
+            entity: number.sigen_plant_pv_max_power_limit
+            display_zero_state: true
+        clickable_entities: true
+        display_zero_lines:
+          mode: show
+          transparency: 50
+          grey_color:
+            - 189
+            - 189
+            - 189
+        min_flow_rate: 0
+        transparency_zero_lines: 0
+        grid_options:
+          columns: 12
+          rows: 6
+      - type: entities
+        entities:
+          - input_boolean.trader_enable_auto_change_export_limit
+          - input_boolean.trader_increase_export_rate_by_solar
+          - input_boolean.trader_enable_auto_selling_from_battery
+        title: Settings
+    column_span: 4
+  - type: grid
+    cards:
+      - type: custom:power-flow-card-plus
+        entities:
+          battery:
+            state_of_charge: sensor.sigen_plant_battery_state_of_charge
+            entity: sensor.sigen_plant_battery_power
+            invert_state: true
+          grid:
+            entity: number.sigenergy_net_grid_flow
+            secondary_info: {}
+          solar:
+            entity: sensor.sigen_inverter_pv_power
+            display_zero_state: true
+            secondary_info:
+              entity: sensor.solcast_pv_forecast_forecast_remaining_today
+              unit_of_measurement: kWh
+          home:
+            secondary_info: {}
+            entity: number.sig_house_flow
+          individual:
+            - entity: sensor.zappi_power_flow
+              secondary_info:
+                entity: number.km_of_range_added
+                unit_of_measurement: km
+              name: EV
+              icon: mdi:car
+              display_zero: true
+        clickable_entities: true
+        display_zero_lines:
+          mode: show
+          transparency: 50
+          grey_color:
+            - 189
+            - 189
+            - 189
+        use_new_flow_rate_model: true
+        w_decimals: 0
+        kw_decimals: 1
+        min_flow_rate: 0.75
+        max_flow_rate: 6
+        max_expected_power: 30000
+        min_expected_power: 0.01
+        watt_threshold: 1000
+        transparency_zero_lines: 0
+        sort_individual_devices: false
+        grid_options:
+          columns: 12
+          rows: 6
+    column_span: 2
+  - type: grid
+    cards:
+      - type: logbook
+        target:
+          entity_id:
+            - sensor.trader_stop_at_soc
+            - sensor.trader_plan_letter
+            - input_boolean.trader_enable_auto_selling_from_battery
+            - input_boolean.trader_increase_export_rate_by_solar
+            - sensor.trader_battery_discharge_rate_chosen_from_plan
+            - input_boolean.trader_enable_auto_change_export_limit
+            - binary_sensor.trader_exporting_criteria_met
+            - sensor.trader_mode
+            - binary_sensor.trader_grid_price_negative
+            - number.sigen_plant_pv_max_power_limit
+            - number.sigen_plant_grid_export_limitation
+            - sensor.trader_buy_price
+            - sensor.trader_sell_price
+            - input_boolean.trader_divert_solar_enabled
+            - binary_sensor.trader_solar_divert_conditions_met
+            - sensor.sigen_plant_battery_state_of_charge
+            - number.sigen_plant_ess_charge_cut_off_state_of_charge
+        grid_options:
+          columns: 45
+          rows: auto
+        hours_to_show: 2
+        title: Logs
+    column_span: 4
+  - type: grid
+    cards:
+      - type: heading
+        heading: Debug
+        heading_style: title
+      - type: entities
+        entities:
+          - entity: sensor.trader_sell_price
+          - entity: sensor.trader_buy_price
+          - entity: input_number.trader_solar_divert_sell_price
+          - entity: sensor.trader_spare_solar
+          - entity: sensor.trader_plan_letter
+          - entity: sensor.trader_battery_discharge_rate_chosen_from_plan
+          - entity: sensor.trader_stop_at_soc
+          - entity: input_boolean.trader_increase_export_rate_by_solar
+          - entity: select.sigen_plant_remote_ems_control_mode
+          - entity: sensor.trader_mode
+          - entity: binary_sensor.trader_exporting_criteria_met
+          - entity: sensor.trader_cheapest_buy_price
+          - entity: binary_sensor.trader_grid_price_negative
+          - entity: sensor.my_amber_sell_price_sensor
+          - entity: sensor.my_amber_buy_price_sensor
+          - entity: input_boolean.trader_divert_solar_enabled
+          - entity: binary_sensor.trader_solar_divert_conditions_met
+          - entity: sensor.sigen_plant_battery_state_of_charge
+          - entity: number.sigen_plant_ess_charge_cut_off_state_of_charge
+          - entity: sensor.trader_battery_discharge_rate_chosen_from_plan
+        grid_options:
+          columns: 21
+          rows: auto
+    column_span: 4
