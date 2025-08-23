@@ -240,10 +240,11 @@ sections:
         heading_style: title
       - type: entities
         entities:
-          - input_boolean.trader_sell_enabled_a
-          - input_number.trader_sell_price_a
-          - input_number.trader_export_rate_a
-          - input_number.trader_soc_sell_to_a
+          - entity: input_boolean.trader_sell_enabled_a
+            name: Enabled
+          - entity: input_number.trader_sell_price_a
+          - entity: input_number.trader_export_rate_a
+          - entity: input_number.trader_soc_sell_to_a
         title: Plan A
         card_mod:
           style: |
@@ -255,10 +256,11 @@ sections:
             {%endif%} }
       - type: entities
         entities:
-          - input_boolean.trader_sell_enabled_b
-          - input_number.trader_sell_price_b
-          - input_number.trader_export_rate_b
-          - input_number.trader_soc_sell_to_b
+          - entity: input_boolean.trader_sell_enabled_b
+            name: Enabled
+          - entity: input_number.trader_sell_price_b
+          - entity: input_number.trader_export_rate_b
+          - entity: input_number.trader_soc_sell_to_b
         title: Plan B
         card_mod:
           style: |
@@ -270,10 +272,11 @@ sections:
             {%endif%} }
       - type: entities
         entities:
-          - input_boolean.trader_sell_enabled_c
-          - input_number.trader_sell_price_c
-          - input_number.trader_export_rate_c
-          - input_number.trader_soc_sell_to_c
+          - entity: input_boolean.trader_sell_enabled_c
+            name: Enabled
+          - entity: input_number.trader_sell_price_c
+          - entity: input_number.trader_export_rate_c
+          - entity: input_number.trader_soc_sell_to_c
         title: Plan C
         card_mod:
           style: |
@@ -285,10 +288,11 @@ sections:
             {%endif%} }
       - type: entities
         entities:
-          - input_boolean.trader_sell_enabled_d
-          - input_number.trader_sell_price_d
-          - input_number.trader_export_rate_d
-          - input_number.trader_soc_sell_to_d
+          - entity: input_boolean.trader_sell_enabled_d
+            name: Enabled
+          - entity: input_number.trader_sell_price_d
+          - entity: input_number.trader_export_rate_d
+          - entity: input_number.trader_soc_sell_to_d
         title: Plan D
         card_mod:
           style: |
@@ -300,10 +304,11 @@ sections:
             {%endif%} }
       - type: entities
         entities:
-          - input_boolean.trader_sell_enabled_e
-          - input_number.trader_sell_price_e
-          - input_number.trader_export_rate_e
-          - input_number.trader_soc_sell_to_e
+          - entity: input_boolean.trader_sell_enabled_e
+            name: Enabled
+          - entity: input_number.trader_sell_price_e
+          - entity: input_number.trader_export_rate_e
+          - entity: input_number.trader_soc_sell_to_e
         title: Plan E
         card_mod:
           style: |
