@@ -1,0 +1,294 @@
+template:
+  - sensor:
+      - name: "Max Grid Exports"
+        state: 30
+      - name: "My Amber Buy Price Sensor"
+        state: "sensor.amber_true_five_min_price_mqtt"
+        attributes:
+          multiplier: "1"
+      - name: "My Amber Sell Price Sensor"
+        state: "sensor.amber_true_five_minute_export_price"  
+        attributes:
+          multiplier: "1"
+
+input_number:
+#####################
+# Sell price triggers
+#####################
+  trader_sell_price_a:
+    name: Battery sell price A
+    <<: &shared1
+      min: 0
+      max: 25000
+      step: 1
+      mode: box
+      unit_of_measurement: cents
+  
+  trader_sell_price_b:
+    name: Battery sell price B
+    <<: *shared1
+    
+  trader_sell_price_c:
+    name: Battery sell price C
+    <<: *shared1
+          
+  trader_sell_price_d:
+    name: Battery sell price D
+    <<: *shared1
+    
+  trader_sell_price_e:
+    name: Battery sell price E
+    <<: *shared1
+
+  trader_sell_price_z:
+    name: Battery sell price Z
+    <<: *shared1
+
+  trader_solar_divert_sell_price:
+    name: Min Solar price to divert to grid
+    <<: *shared1
+
+  trader_prefer_grid_priced_under:
+    name: Prefer Grid over Battery Priced Under
+    <<: *shared1  
+
+#####################
+# Sell SOC minima
+#####################
+
+  trader_soc_sell_to_a:
+    name: Battery sell soc A
+    <<: &shared2
+      min: 0
+      max: 100
+      step: 1
+      mode: box
+      unit_of_measurement: "%"
+
+  trader_soc_sell_to_b:
+    name: Battery sell soc B
+    <<: *shared2
+    
+  trader_soc_sell_to_c:
+    name: Battery sell soc C
+    <<: *shared2
+    
+  trader_soc_sell_to_d:
+    name: Battery sell soc D
+    <<: *shared2
+    
+  trader_soc_sell_to_e:
+    name: Battery sell soc E
+    <<: *shared2
+  
+  trader_soc_sell_to_z:
+    name: Battery sell soc Z
+    <<: *shared2
+
+#####################
+# Sell price rates (kW)
+#####################
+
+  trader_export_rate_a:
+    name: Battery sell rate A
+    <<: &shared3
+      min: 0
+      max: 100
+      step: 1
+      mode: box
+      unit_of_measurement: kW
+    
+  trader_export_rate_b:
+    name: Battery sell rate B
+    <<: *shared3
+
+  trader_export_rate_c:
+    name: Battery sell rate C
+    <<: *shared3
+    
+  trader_export_rate_d:
+    name: Battery sell rate D
+    <<: *shared3
+    
+  trader_export_rate_e:
+    name: Battery sell rate E
+    <<: *shared3
+
+  trader_export_rate_z:
+    name: Battery sell rate Z
+    <<: *shared3
+
+
+
+#####################
+# Sell price triggers enabled/disabled
+#####################
+
+input_boolean:
+
+  trader_sell_enabled_a:
+    name: Battery sell enabled A
+  trader_sell_enabled_b:
+    name: Battery sell enabled B
+  trader_sell_enabled_c:
+    name: Battery sell enabled C
+  trader_sell_enabled_d:
+    name: Battery sell enabled D
+  trader_sell_enabled_e:
+    name: Battery sell enabled E
+
+  trader_divert_solar_enabled:
+    name: Divert solar to grid enabled
+
+  trader_increase_export_rate_by_solar:
+    name: Increase export rate with spare solar
+  trader_enable_auto_change_export_limit:
+    name: Enable Export Limit Changes
+  trader_enable_auto_selling_from_battery:
+    name: Enable Exports
+
+binary_sensor:
+  - platform: template
+    sensors:
+      trader_exporting_criteria_met:
+        friendly_name: "Exporting Criteria Met"
+        value_template: >
+          {% if states('input_boolean.trader_enable_auto_selling_from_battery') and states('sensor.trader_plan_letter')  != 'z' %}
+            true
+          {% else %}
+            false
+          {% endif %}
+
+      trader_grid_price_negative:
+        friendly_name: "Grid Import Price is Negative"
+        value_template: >
+          {% set price = states('sensor.trader_buy_price')|float %}
+          {{ price <0 }}
+
+      trader_solar_divert_conditions_met:
+        friendly_name: "Divert solar to grid conditions met"
+        value_template: >
+          {{ states('sensor.trader_sell_price')|float(0) > states('input_number.trader_solar_divert_sell_price')|float(99)
+             and is_state('input_boolean.trader_divert_solar_enabled','on') }}
+
+
+      trader_use_cheap_grid_not_battery:
+        friendly_name: Use Cheap Grid instead of from battery
+        value_template: >
+          {% set max_price = states('input_number.trader_prefer_grid_priced_under')|float(0) %}
+          {% set price_now = states('sensor.trader_buy_price')|float(9999) %}
+          {% set soc = states('sensor.sigen_plant_battery_state_of_charge')|int %}
+          {{ price_now < max_price }}
+#          {{ price_now < max_price and now().hour > 7 and now().hour < 17 and soc <95}}
+
+sensor:
+  - platform: template
+    sensors:
+      trader_mode:
+        friendly_name: "Pref Mode"
+        value_template: >
+          {% set negative_buy = is_state('binary_sensor.trader_grid_price_negative', 'on') %}
+          {% if is_state('binary_sensor.trader_exporting_criteria_met', 'on') %}
+          Command Discharging (PV First)
+          {% else %}
+            {% if negative_buy %}
+          Command Charging (PV First)
+            {% else %}
+          Maximum Self Consumption
+            {% endif %}
+          {% endif %}
+#
+      trader_plan_letter:
+        friendly_name: "Active Plan"
+        value_template: >
+          {% set price = states('sensor.trader_sell_price')| float %}
+          {% set soc = states('sensor.sigen_inverter_battery_state_of_charge') | float(default=0) %}
+          {% set ns = namespace(pick='z') %}
+          {% for l in ['a', 'b', 'c', 'd', 'e'] %}
+            {% set stop_at_soc = states('input_number.trader_soc_sell_to_' + l) | float(default=0) %}
+            {% set want_price = states('input_number.trader_sell_price_' + l) | float(default=0) %}
+            {% set enabled = is_state('input_boolean.trader_sell_enabled_' + l, 'on') %}
+            {% if enabled and price >= want_price and soc > stop_at_soc %}
+              {% set ns.pick = l %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.pick }}
+#          
+      trader_cheapest_buy_price:
+        friendly_name: "Lowest Active Battery Sell Price"
+        unit_of_measurement: cents
+        value_template: >
+          {% set price = states('sensor.trader_sell_price') | float(default=0) %}
+          {% set soc = states('sensor.sigen_inverter_battery_state_of_charge') | float(default=0) %}
+          {% set ns = namespace(pick=0) %}
+          {% for l in ['e', 'd', 'c', 'b', 'a'] %}
+            {% set stop_at_soc = states('input_number.trader_soc_sell_to_' + l) | float(default=0) %}
+            {% set want_price = states('input_number.trader_sell_price_' + l) | float(default=0) %}
+            {% set enabled = is_state('input_boolean.trader_sell_enabled_' + l, 'on') %}
+            {% if enabled and  soc > stop_at_soc %}
+              {% set ns.pick = want_price %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.pick }}          
+#
+      trader_spare_solar:
+        friendly_name: "Current Spare Solar"
+        unit_of_measurement: "kW"
+        value_template: >
+          {% set pv_w = states('sensor.sigen_plant_pv_power') | float(default=0) %}
+          {% set plant_active_pw = states('sensor.sigen_plant_plant_active_power') | float(default=0) %}
+          {% set grid_sensor_pw = states('sensor.sigen_plant_grid_active_power') | float(default=0) %}
+          {% set spare = pv_w - plant_active_pw %}
+          {% if grid_sensor_pw < 0 %}
+            {% set spare = spare - grid_sensor_pw %}
+          {% endif %}
+          {%  if spare < 0 %}
+            {% set spare = 0 %}
+          {% endif %}
+          {{ spare  }}
+#
+      trader_battery_discharge_rate_chosen_from_plan:
+        friendly_name: "Export Discharge Rate based on plan"
+        unit_of_measurement: "kW"
+        value_template: >
+          {% set option_letter = states('sensor.trader_plan_letter') %}
+          {% set entity_id = 'input_number.trader_export_rate_' + option_letter %}
+          {% set new_kw = states(entity_id) | float(default=0) %}
+          {% set spare_solar = states('sensor.trader_spare_solar') | float(default=0) %}
+          {% set enabled = is_state('input_boolean.trader_increase_export_rate_by_solar', 'on') %}
+          {% if enabled %}
+            {% set limit = (new_kw + spare_solar + 0.5) | int %}
+          {% else %}
+            {% set limit = new_kw + 0.5 | int %}
+          {% endif %}
+          {% if limit > states('sensor.max_grid_exports') | float %}
+            {% set limit = states('sensor.max_grid_exports') | float %}
+          {% endif %}
+          {{limit}}
+#
+      trader_stop_at_soc:
+        friendly_name: "Export Discharge SOC based on plan"
+        unit_of_measurement: "%"
+        value_template: >
+          {% set option_letter = states('sensor.trader_plan_letter')  %}
+          {{ states('input_number.trader_soc_sell_to_' + option_letter) | int(default=0) }}
+
+      trader_buy_price:
+        friendly_name: "Amber Buy Price"
+        unit_of_measurement: cents
+        value_template: >
+          {% set mult = state_attr('sensor.my_amber_buy_price_sensor', 'multiplier') |int(1) %}
+          {{ states(states('sensor.my_amber_buy_price_sensor')) | float(default=0) * mult }}
+
+      trader_sell_price:
+        friendly_name: "Amber Sell Price"
+        unit_of_measurement: cents
+        value_template: >
+         {% set mult = state_attr('sensor.my_amber_buy_price_sensor', 'multiplier') | int(1) %}
+         {{ states(states('sensor.my_amber_sell_price_sensor'))| float(default=0) * mult }}
+
+
+
+
