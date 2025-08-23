@@ -1,14 +1,16 @@
 # Requirements: 
-## - you need to be an Amber Electric customer
-## - use Home Assistant
-## - have sensors for your own Amber buy and sell prices
-## - have a Sigenergy home battery system with modbus enabled
-## - have the TypQxQ "Sigenergy-Local-Modbus" integration installed
-## - be confident to have a go and assume all the risks of installing the files provided
+### - you need to be an Amber Electric customer
+### - use Home Assistant
+### - have sensors for your own Amber buy and sell prices
+### - have a Sigenergy home battery system with modbus enabled
+### - have the TypQxQ "Sigenergy-Local-Modbus" integration installed
+### - be confident to have a go and assume all the risks of installing the files provided
 
 This collection of files provides tools to help run automated trading of electricity, e.g. sell from the battery at specific rates when price thresholds are crossed.
 
-# Installation
+## Installation
+
+### Install trader.yaml in a "packages" directory 
 
 The trader.yaml file contains all the helpers needed to configure how you want to buy/sell electricity with Amber.
 
@@ -33,6 +35,8 @@ Edit trader.yaml to tell it your Amber sensors for buy and sell prices.
 You can use sensors that are in AUD by changing the multiplier from 1 to 100.
 We deal in cents not dollar from here on.
 
+### Tell HA to include the packages contents
+
 Edit configuration.yaml and add (if not already there) an instruction to read packages from a specific directory.
 
 ```
@@ -46,9 +50,9 @@ You need to create the directory called packages at the same level as configurat
 Inside the "packages" directory, create a new file names "trader.yaml", edit it and paste in the contents of "trader.yaml".
 If you have scp configured you can copy the file into place instead. (I find I need "scp -O" to send to my HA system).
 
-
-
 It might be worth restarting HA to see if anything has broken so far, if all's well continue.
+
+### Install a new dashboard
 
 Next create a new dashboard view, edit the raw yaml and paste in the contents of the file config_dashboard.yaml
 Save the new dashboard.
