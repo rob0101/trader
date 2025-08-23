@@ -50,7 +50,13 @@ input_number:
 
   trader_prefer_grid_priced_under:
     name: Prefer Grid over Battery Priced Under
-    <<: *shared1  
+    <<: *shared1
+
+  trader_charge_from_grid_price:
+    name: Charge Battery From Grid Price
+    <<: *shared1
+
+
 
 #####################
 # Sell SOC minima
@@ -165,13 +171,23 @@ binary_sensor:
           {% set price = states('sensor.trader_buy_price')|float %}
           {{ price <0 }}
 
+      trader_fit_price_negative:
+        friendly_name: "Grid Export Price is Negative"
+        value_template: >
+          {% set price = states('sensor.trader_sell_price')|float %}
+          {{ price <0 }}
+
       trader_solar_divert_conditions_met:
         friendly_name: "Divert solar to grid conditions met"
         value_template: >
           {{ states('sensor.trader_sell_price')|float(0) > states('input_number.trader_solar_divert_sell_price')|float(99)
              and is_state('input_boolean.trader_divert_solar_enabled','on') }}
 
-
+      trader_charge_from_grid_price_met:
+        friendly_name: "Charge Battery From Grid Price Met"
+        value_template: >
+          {{ states('trader_buy_price')|float(999) < states('trader_charge_from_grid_price')|float(0) }}
+        
       trader_use_cheap_grid_not_battery:
         friendly_name: Use Cheap Grid instead of from battery
         value_template: >
