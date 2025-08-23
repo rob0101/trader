@@ -251,7 +251,8 @@ sections:
             ha-card {  {% if is_state('sensor.trader_plan_letter','a') %}
               border-color: yellow;
               border-width: 8px;
-            {% elif is_state('input_boolean.trader_sell_enabled_b','Off') %}
+            {% endif %}
+            {% if is_state('input_boolean.trader_sell_enabled_a','off') %}
               color: gray;
             {%endif%} }
       - type: entities
@@ -267,7 +268,7 @@ sections:
             ha-card {  {% if is_state('sensor.trader_plan_letter','b') %}
               border-color: yellow;
               border-width: 8px;
-            {% elif is_state('input_boolean.trader_sell_enabled_b','Off') %}
+            {% elif is_state('input_boolean.trader_sell_enabled_b','off') %}
               color: gray;
             {%endif%} }
       - type: entities
@@ -283,7 +284,7 @@ sections:
             ha-card {  {% if is_state('sensor.trader_plan_letter','c') %}
               border-color: yellow;
               border-width: 8px;
-            {% elif is_state('input_boolean.trader_sell_enabled_c','Off') %}
+            {% elif is_state('input_boolean.trader_sell_enabled_c','off') %}
               color: gray;
             {%endif%} }
       - type: entities
@@ -299,7 +300,7 @@ sections:
             ha-card {  {% if is_state('sensor.trader_plan_letter','d') %}
               border-color: yellow;
               border-width: 8px;
-            {% elif is_state('input_boolean.trader_sell_enabled_d','Off') %}
+            {% elif is_state('input_boolean.trader_sell_enabled_d','off') %}
               color: gray;
             {%endif%} }
       - type: entities
@@ -315,7 +316,7 @@ sections:
             ha-card {  {% if is_state('sensor.trader_plan_letter','e') %}
               border-color: yellow;
               border-width: 8px;
-            {% elif is_state('input_boolean.trader_sell_enabled_e','Off') %}
+            {% elif is_state('input_boolean.trader_sell_enabled_e','off') %}
               color: gray;
             {%endif%} }
       - type: entities
@@ -355,6 +356,26 @@ sections:
               border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
               color: gray;
             {%endif%} }
+      - type: entities
+        entities:
+          - input_boolean.trader_enable_auto_change_export_limit
+          - input_boolean.trader_increase_export_rate_by_solar
+          - input_boolean.trader_enable_auto_selling_from_battery
+        title: Settings
+      - type: entities
+        entities:
+          - entity: input_number.trader_charge_from_grid_price
+            name: Priced under
+          - entity: binary_sensor.trader_charge_from_grid_price_met
+        title: Charge from Grid
+        card_mod:
+          style: >
+            ha-card {  {% if
+            is_state('binary_sensor.trader_charge_fr_grid_price_met','on') %}
+              border-color: yellow;
+              border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
+              color: gray;
+            {%endif%} }
       - type: custom:power-flow-card-plus
         entities:
           battery:
@@ -382,12 +403,6 @@ sections:
         grid_options:
           columns: 12
           rows: 6
-      - type: entities
-        entities:
-          - input_boolean.trader_enable_auto_change_export_limit
-          - input_boolean.trader_increase_export_rate_by_solar
-          - input_boolean.trader_enable_auto_selling_from_battery
-        title: Settings
     column_span: 4
   - type: grid
     cards:
@@ -461,6 +476,9 @@ sections:
             - binary_sensor.trader_solar_divert_conditions_met
             - sensor.sigen_plant_battery_state_of_charge
             - number.sigen_plant_ess_charge_cut_off_state_of_charge
+            - binary_sensor.trader_fit_price_negative
+            - input_number.trader_charge_from_grid_price
+            - binary_sensor.trader_charge_from_grid_price_met
         grid_options:
           columns: 45
           rows: auto
@@ -488,12 +506,15 @@ sections:
           - entity: binary_sensor.trader_exporting_criteria_met
           - entity: sensor.trader_cheapest_buy_price
           - entity: binary_sensor.trader_grid_price_negative
+          - entity: binary_sensor.trader_fit_price_negative
           - entity: sensor.my_amber_sell_price_sensor
           - entity: sensor.my_amber_buy_price_sensor
           - entity: input_boolean.trader_divert_solar_enabled
           - entity: binary_sensor.trader_solar_divert_conditions_met
           - entity: sensor.sigen_plant_battery_state_of_charge
           - entity: number.sigen_plant_ess_charge_cut_off_state_of_charge
+          - entity: input_number.trader_charge_from_grid_price
+          - entity: binary_sensor.trader_charge_from_grid_price_met
         grid_options:
           columns: 21
           rows: auto
