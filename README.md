@@ -54,7 +54,7 @@ It might be worth restarting HA to see if anything has broken so far, if all's w
 
 ### Install a new dashboard
 
-Next create a new dashboard view, edit the raw yaml and paste in the contents of the file config_dashboard.yaml
+Next create a new dashboard view, edit the raw yaml and paste in the contents of the file config_dashboard.yaml REPLACING THE ORIGINAL CONTENTS.
 Save the new dashboard.
 
 ![Screenshot 2025-08-23 at 2 51 24 pm](https://github.com/user-attachments/assets/2d797185-425e-4603-a261-b80f72c8d2b4)
