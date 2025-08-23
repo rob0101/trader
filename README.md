@@ -1,8 +1,14 @@
+# Requirements: 
+## - you need to be an Amber Electric customer
+## - use Home Assistant
+## - have sensors for your own Amber buy and sell prices
+## - have a Sigenergy home battery system with modbus enabled
+## - have the TypQxQ "Sigenergy-Local-Modbus" integration installed
+## - be confident to have a go and assume all the risks of installing the files provided
+
+This collection of files provides tools to help run automated trading of electricity, e.g. sell from the battery at specific rates when price thresholds are crossed.
+
 # Installation
-
-# Requirements: you need to be an Amber customer. Use Home Assistant, have sensors for your own Amber buy and sell prices, have a Sigenergy system with modbus enabled.
-
-Tools to help run automated trading of electricity from a Sigenergy home battery system, using TypQxQ's integration for Sig + Home Assistant + modbus (https://github.com/TypQxQ/Sigenergy-Local-Modbus)
 
 The trader.yaml file contains all the helpers needed to configure how you want to buy/sell electricity with Amber.
 
