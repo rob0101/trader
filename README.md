@@ -8,6 +8,8 @@
 
 This collection of files provides tools to help run automated trading of electricity, e.g. sell from the battery at specific rates when price thresholds are crossed.
 
+One of the options will be battery -> grid selling for tiered prices, so you can export quickly to low SOCs for high spike prices and export slower to higher SOCs for lower prices.
+
 ## Installation
 
 ### Install trader.yaml in a "packages" directory 
@@ -18,7 +20,8 @@ trader.yaml should be installed in a packages directory in your HA system.
 
 Edit trader.yaml to tell it your Amber sensors for buy and sell prices.
 
-```emplate:
+```
+template:
   - sensor:
       - name: "Max Grid Exports"
         state: 30
