@@ -8,7 +8,7 @@
 
 This collection of files provides tools to help run automated trading of electricity, e.g. sell from the battery at specific rates when price thresholds are crossed.
 
-One of the options will be battery -> grid selling for tiered prices, so you can export quickly to low SOCs for high spike prices and export slower to higher SOCs for lower prices.
+One of the options will be battery -> grid selling for tiered prices, so you can export quickly to low SOCs for high spike prices and export slower to higher SOCs for lower prices. There will be a price trigger for charging from the grid, and price trigger for using the grid instead of the battery, a price trigger for exporting solar to the grid and more.
 
 ## Installation
 
