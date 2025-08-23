@@ -1,6 +1,5 @@
 # trader
-Tools to help run automated trading of electricity from a Sigenergy home battery system, using TypQxQ's integration for Sig + Home Assistant + modbus 
-These tools are for customers of Amber Electric in Australia.
+Tools to help run automated trading of electricity from a Sigenergy home battery system, using TypQxQ's integration for Sig + Home Assistant + modbus.
 
 The trader.yaml file contains all the helpers needed to configure how you want to buy/sell electricity with Amber.
 
@@ -26,3 +25,7 @@ Save the new dashboard.
 You should then have something that looks similar to this
 
 ![Screenshot 2025-08-23 at 2 21 54 pm](https://github.com/user-attachments/assets/17e99af5-a259-4335-8d7e-b26d53b32cac)
+
+At this stage, I only need testers to get this far and report issues.
+
+I have some automations that will be uploaded once we have proven we can get this far.
