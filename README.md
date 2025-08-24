@@ -20,6 +20,7 @@ The trader.yaml file contains all the helpers needed to configure how you want t
 trader.yaml should be installed in a packages directory in your HA system.
 
 Edit trader.yaml to tell it your Amber sensors for buy and sell prices.
+Change the max grid exports from 30 to your maximum allowed grid export value in kW
 
 ```
 template:
