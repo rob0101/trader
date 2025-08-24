@@ -4,8 +4,10 @@
 - have sensors for your own Amber buy and sell prices
 - have a Sigenergy home battery system with modbus enabled
 - have the TypQxQ "Sigenergy-Local-Modbus" integration installed
-- run the Sig system in Remote EMS mode, i.e. with Smartshift already permanently disabled.
+- run the Sig system in Remote EMS mode ***
 - be confident to have a go and assume all the risks of installing the files provided
+
+*** as of August 2025 if you change from VPP mode (Amber) to Remote EMS mode (Home Assistant) there's no easy way to switch back to VPP mode. Amber are working on a fix. In the meantime you have to ask Amber to re-enable VPP mode.
 
 This collection of files provides tools to help run automated trading of electricity, e.g. sell from the battery at specific rates when price thresholds are crossed.
 
