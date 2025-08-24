@@ -404,6 +404,19 @@ sections:
             {%endif%} }
       - type: entities
         entities:
+          - entity: input_number.trader_prefer_grid_priced_under
+            name: Priced under
+        title: Use grid instead of battery
+        card_mod:
+          style: >
+            ha-card {  {% if
+            is_state('binary_sensor.trader_use_cheap_grid_not_battery', 'on') %}
+              border-color: yellow;
+              border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
+              color: gray;
+            {%endif%} }
+      - type: entities
+        entities:
           - input_boolean.trader_divert_solar_enabled
           - input_number.trader_solar_divert_sell_price
         title: Excess Solar Exports
@@ -449,19 +462,6 @@ sections:
           - input_boolean.trader_increase_export_rate_by_solar
           - input_boolean.trader_enable_auto_selling_from_battery
         title: Settings
-      - type: entities
-        entities:
-          - entity: input_number.trader_prefer_grid_priced_under
-            name: Priced under
-        title: Use grid instead of battery
-        card_mod:
-          style: >
-            ha-card {  {% if
-            is_state('binary_sensor.trader_use_cheap_grid_not_battery', 'on') %}
-              border-color: yellow;
-              border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
-              color: gray;
-            {%endif%} }
     column_span: 4
   - type: grid
     cards: []
