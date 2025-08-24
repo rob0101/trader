@@ -1,209 +1,533 @@
-type: grid
-cards:
-  - type: heading
-    heading: Plans
-    heading_style: title
-  - type: entities
-    entities:
-      - entity: input_boolean.trader_sell_enabled_a
-        name: Enabled
-      - entity: input_number.trader_sell_price_a
-      - entity: input_number.trader_export_rate_a
-      - entity: input_number.trader_soc_sell_to_a
-    title: Plan A
-    card_mod:
-      style: |
-        ha-card {  {% if is_state('sensor.trader_plan_letter','a') %}
-          border-color: yellow;
-          border-width: 8px;
-        {% endif %}
-        {% if is_state('input_boolean.trader_sell_enabled_a','off') %}
-          color: gray;
-        {%endif%} }
-  - type: entities
-    entities:
-      - entity: input_boolean.trader_sell_enabled_b
-        name: Enabled
-      - entity: input_number.trader_sell_price_b
-      - entity: input_number.trader_export_rate_b
-      - entity: input_number.trader_soc_sell_to_b
-    title: Plan B
-    card_mod:
-      style: |
-        ha-card {  {% if is_state('sensor.trader_plan_letter','b') %}
-          border-color: yellow;
-          border-width: 8px;
-        {% elif is_state('input_boolean.trader_sell_enabled_b','off') %}
-          color: gray;
-        {%endif%} }
-  - type: entities
-    entities:
-      - entity: input_boolean.trader_sell_enabled_c
-        name: Enabled
-      - entity: input_number.trader_sell_price_c
-      - entity: input_number.trader_export_rate_c
-      - entity: input_number.trader_soc_sell_to_c
-    title: Plan C
-    card_mod:
-      style: |
-        ha-card {  {% if is_state('sensor.trader_plan_letter','c') %}
-          border-color: yellow;
-          border-width: 8px;
-        {% elif is_state('input_boolean.trader_sell_enabled_c','off') %}
-          color: gray;
-        {%endif%} }
-  - type: entities
-    entities:
-      - entity: input_boolean.trader_sell_enabled_d
-        name: Enabled
-      - entity: input_number.trader_sell_price_d
-      - entity: input_number.trader_export_rate_d
-      - entity: input_number.trader_soc_sell_to_d
-    title: Plan D
-    card_mod:
-      style: |
-        ha-card {  {% if is_state('sensor.trader_plan_letter','d') %}
-          border-color: yellow;
-          border-width: 8px;
-        {% elif is_state('input_boolean.trader_sell_enabled_d','off') %}
-          color: gray;
-        {%endif%} }
-  - type: entities
-    entities:
-      - entity: input_boolean.trader_sell_enabled_e
-        name: Enabled
-      - entity: input_number.trader_sell_price_e
-      - entity: input_number.trader_export_rate_e
-      - entity: input_number.trader_soc_sell_to_e
-    title: Plan E
-    card_mod:
-      style: |
-        ha-card {  {% if is_state('sensor.trader_plan_letter','e') %}
-          border-color: yellow;
-          border-width: 8px;
-        {% elif is_state('input_boolean.trader_sell_enabled_e','off') %}
-          color: gray;
-        {%endif%} }
-  - type: custom:power-flow-card-plus
-    entities:
-      battery:
-        state_of_charge: sensor.sigen_plant_battery_state_of_charge
-        entity: sensor.sigen_plant_battery_power
-        invert_state: true
-      grid:
-        entity: number.sigenergy_net_grid_flow
-        secondary_info: {}
-      solar:
-        entity: sensor.sigen_inverter_pv_power
-        display_zero_state: true
-        secondary_info:
-          entity: sensor.solcast_pv_forecast_forecast_remaining_today
-          unit_of_measurement: kWh
-      home:
-        secondary_info: {}
-        entity: number.sig_house_flow
-    clickable_entities: true
-    display_zero_lines:
-      mode: show
-      transparency: 50
-      grey_color:
-        - 189
-        - 189
-        - 189
-    use_new_flow_rate_model: true
-    w_decimals: 0
-    kw_decimals: 1
-    min_flow_rate: 0.75
-    max_flow_rate: 6
-    max_expected_power: 30000
-    min_expected_power: 0.01
-    watt_threshold: 1000
-    transparency_zero_lines: 0
-    sort_individual_devices: false
-    grid_options:
-      columns: 12
-      rows: 6
-  - type: entities
-    entities:
-      - entity: input_number.trader_export_rate_z
-    title: No battery exports (Plan Z)
-    card_mod:
-      style: |
-        ha-card {  {% if is_state('sensor.trader_plan_letter','z') %}
-          border-color: yellow;
-          border-width: 8px;
-        {%endif%} }
-  - type: entities
-    entities:
-      - entity: input_number.trader_charge_from_grid_price
-        name: Priced under
-      - entity: binary_sensor.trader_charge_from_grid_price_met
-    title: Charge from Grid
-    card_mod:
-      style: >
-        ha-card {  {% if
-        is_state('binary_sensor.trader_charge_fr_grid_price_met','on') %}
-          border-color: yellow;
-          border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
-          color: gray;
-        {%endif%} }
-  - type: entities
-    entities:
-      - input_boolean.trader_divert_solar_enabled
-      - input_number.trader_solar_divert_sell_price
-    title: Excess Solar Exports
-    card_mod:
-      style: >
-        ha-card {  {% if
-        is_state('binary_sensor.trader_solar_divert_conditions_met', 'on') %}
-          border-color: yellow;
-          border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
-          color: gray;
-        {%endif%} }
-  - type: custom:power-flow-card-plus
-    entities:
-      battery:
-        entity:
-          consumption: number.sigen_plant_ess_max_discharging_limit
-          production: number.sigen_plant_ess_max_charging_limit
-      grid:
-        entity:
-          production: number.sigen_plant_grid_export_limitation
-          consumption: number.sigen_plant_grid_import_limitation
-          unit_of_measurement: kW
-      solar:
-        entity: number.sigen_plant_pv_max_power_limit
-        display_zero_state: true
-    clickable_entities: true
-    display_zero_lines:
-      mode: show
-      transparency: 50
-      grey_color:
-        - 189
-        - 189
-        - 189
-    min_flow_rate: 0
-    transparency_zero_lines: 0
-    grid_options:
-      columns: 12
-      rows: 6
-  - type: entities
-    entities:
-      - input_boolean.trader_enable_auto_change_export_limit
-      - input_boolean.trader_increase_export_rate_by_solar
-      - input_boolean.trader_enable_auto_selling_from_battery
-    title: Settings
-  - type: entities
-    entities:
-      - entity: input_number.trader_prefer_grid_priced_under
-        name: Priced under
-    title: Use grid instead of battery
-    card_mod:
-      style: >
-        ha-card {  {% if
-        is_state('binary_sensor.trader_use_cheap_grid_not_battery', 'on') %}
-          border-color: yellow;
-          border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
-          color: gray;
-        {%endif%} }
-column_span: 4
+title: Trader
+card_mod:
+  style: |
+    ha-card {
+      ha-textfield$ { .mdc-text-field { height: 3em !important;}}
+      }
+views:
+  - title: Amber based Sig automations
+    path: settings
+    theme: default
+    icon: mdi:cog
+    type: sections
+    sections:
+      - type: grid
+        column_span: 10
+        cards:
+          - type: heading
+            heading_style: title
+            heading: Battery discharge setting by price
+            icon: mdi:lead-pencil
+          - type: custom:power-flow-card-plus
+            entities:
+              battery:
+                entity:
+                  consumption: number.sigen_plant_ess_max_discharging_limit
+                  production: number.sigen_plant_ess_max_charging_limit
+              grid:
+                entity:
+                  production: number.sigen_plant_pcs_import_limitation
+                  consumption: number.sigen_plant_grid_import_limitation
+                  unit_of_measurement: kW
+              solar:
+                entity: number.sigen_plant_pv_max_power_limit
+                display_zero_state: true
+            clickable_entities: true
+            display_zero_lines:
+              mode: show
+              transparency: 50
+              grey_color:
+                - 189
+                - 189
+                - 189
+            min_flow_rate: 0
+            transparency_zero_lines: 0
+            grid_options:
+              columns: 12
+              rows: 6
+          - type: entities
+            entities:
+              - entity: input_boolean.trader_divert_solar_enabled
+                name: Divert spare solar to grid
+              - entity: input_number.trader_solar_divert_sell_price
+                name: Solar sell price
+            card_mod:
+              style: >
+                ha-card {  {% if
+                is_state('binary_sensor.trader_solar_divert_conditions_met',
+                'on') %}
+                  border-color: yellow;
+                  border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
+                  color: gray;
+                {%endif%} }
+          - type: entities
+            entities:
+              - entity: input_boolean.trader_sell_enabled_a
+                name: Plan A
+              - entity: input_number.trader_sell_price_a
+                name: Sell price
+              - entity: input_number.trader_export_rate_a
+                name: Sell rate
+              - entity: input_number.trader_soc_sell_to_a
+                name: Sell down to
+            card_mod:
+              style: |
+                ha-card {  {% if is_state('sensor.trader_plan_letter','a') %}
+                  border-color: yellow;
+                  border-width: 8px;
+                {% elif is_state('input_boolean.trader_sell_enabled_b','Off') %}
+                  color: gray;
+                {%endif%} }
+          - type: entities
+            entities:
+              - entity: input_boolean.trader_sell_enabled_b
+                name: Plan B
+              - entity: input_number.trader_sell_price_b
+                name: Sell price
+              - entity: input_number.trader_export_rate_b
+                name: Sell rate
+              - entity: input_number.trader_soc_sell_to_b
+                name: Sell down to
+            card_mod:
+              style: |
+                ha-card {  {% if is_state('sensor.trader_plan_letter','b') %}
+                  border-color: yellow;
+                  border-width: 8px;
+                {% elif is_state('input_boolean.trader_sell_enabled_b','Off') %}
+                  color: gray;
+                {% endif %} }
+          - type: entities
+            entities:
+              - entity: input_boolean.trader_sell_enabled_c
+                name: Plan C
+              - entity: input_number.trader_sell_price_c
+                name: Sell price
+              - entity: input_number.trader_export_rate_c
+                name: Sell rate
+              - entity: input_number.trader_soc_sell_to_c
+                name: Sell down to
+            card_mod:
+              style: |
+                ha-card {  {% if is_state('sensor.trader_plan_letter','c') %}
+                  border-color: yellow;
+                  border-width: 8px;
+                {% elif is_state('input_boolean.trader_sell_enabled_c','Off') %}
+                  color: gray;
+                {% endif %} }
+          - type: entities
+            entities:
+              - entity: input_boolean.trader_sell_enabled_d
+                name: Plan D
+              - entity: input_number.trader_sell_price_d
+                name: Sell price
+              - entity: input_number.trader_export_rate_d
+                name: Sell rate
+              - entity: input_number.trader_soc_sell_to_d
+                name: Sell down to
+            card_mod:
+              style: |
+                ha-card {  {% if is_state('sensor.trader_plan_letter','d') %}
+                  border-color: yellow;
+                  border-width: 8px;
+                {% elif is_state('input_boolean.trader_sell_enabled_d','Off') %}
+                  color: gray;
+                {% endif %} }
+          - type: entities
+            entities:
+              - entity: input_boolean.trader_sell_enabled_e
+                name: Plan E
+              - entity: input_number.trader_sell_price_e
+                name: Sell price
+              - entity: input_number.trader_export_rate_e
+                name: Sell rate
+              - entity: input_number.trader_soc_sell_to_e
+                name: Sell down to
+            card_mod:
+              style: |
+                ha-card {    {% if is_state('sensor.trader_plan_letter', 'e') %}
+                  border-color: yellow;
+                  border-width: 8px;
+                {% elif is_state('input_boolean.trader_sell_enabled_e','Off') %}
+                  color: gray;
+                {% endif %} }
+          - type: entities
+            entities:
+              - entity: input_number.trader_export_rate_z
+                name: Sell rate
+            title: No battery exporting (Plan Z)
+            card_mod:
+              style: |
+                ha-card {  {% if is_state('sensor.trader_plan_letter','z') %}
+                  border-color: yellow;
+                  border-width: 8px;
+                {% endif %} }
+          - type: entities
+            title: Options
+            entities:
+              - entity: input_boolean.trader_enable_auto_change_export_limit
+                name: Automate changes to Export Limit
+              - entity: input_boolean.trader_increase_export_rate_by_solar
+                name: Increase Export Rate to include solar
+              - entity: input_boolean.trader_enable_auto_selling_from_battery
+                name: Allow Command Discharging (PV first)
+  - title: Debug
+    path: badges
+    theme: default
+    type: sections
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Debug
+            icon: mdi:lead-pencil
+          - type: entities
+            entities:
+              - entity: sensor.trader_sell_price
+              - entity: sensor.trader_buy_price
+              - entity: input_number.trader_solar_divert_sell_price
+              - entity: sensor.trader_spare_solar
+              - entity: sensor.trader_plan_letter
+              - entity: sensor.trader_battery_discharge_rate_chosen_from_plan
+              - entity: sensor.trader_stop_at_soc
+              - entity: input_boolean.trader_increase_export_rate_by_solar
+              - entity: select.sigen_plant_remote_ems_control_mode
+              - entity: sensor.trader_mode
+              - entity: binary_sensor.trader_exporting_criteria_met
+              - entity: sensor.trader_cheapest_buy_price
+              - entity: binary_sensor.trader_grid_price_negative
+              - entity: sensor.my_amber_sell_price_sensor
+              - entity: sensor.my_amber_buy_price_sensor
+              - entity: input_boolean.trader_divert_solar_enabled
+              - entity: binary_sensor.trader_solar_divert_conditions_met
+              - entity: sensor.sigen_plant_battery_state_of_charge
+              - entity: number.sigen_plant_ess_charge_cut_off_state_of_charge
+  - title: Logs
+    path: logs
+    theme: default
+    type: sections
+    sections:
+      - type: grid
+        column_span: 10
+        cards:
+          - type: heading
+            heading_style: title
+            heading: Logs
+            icon: mdi:lead-pencil
+          - type: logbook
+            target:
+              entity_id:
+                - sensor.trader_stop_at_soc
+                - sensor.trader_plan_letter
+                - input_boolean.trader_enable_auto_selling_from_battery
+                - input_boolean.trader_increase_export_rate_by_solar
+                - sensor.trader_battery_discharge_rate_chosen_from_plan
+                - input_boolean.trader_enable_auto_change_export_limit
+                - binary_sensor.trader_exporting_criteria_met
+                - sensor.trader_mode
+                - binary_sensor.trader_grid_price_negative
+                - number.sigen_plant_pv_max_power_limit
+                - number.sigen_plant_grid_export_limitation
+                - sensor.trader_buy_price
+                - sensor.trader_sell_price
+                - input_boolean.trader_divert_solar_enabled
+                - binary_sensor.trader_solar_divert_conditions_met
+                - sensor.sigen_plant_battery_state_of_charge
+                - number.sigen_plant_ess_charge_cut_off_state_of_charge
+            grid_options:
+              columns: full
+cards: []
+type: sections
+sections:
+  - type: grid
+    cards:
+      - type: heading
+        heading: Plans
+        heading_style: title
+      - type: entities
+        entities:
+          - entity: input_boolean.trader_sell_enabled_a
+            name: Enabled
+          - entity: input_number.trader_sell_price_a
+            name: Sell price
+          - entity: input_number.trader_export_rate_a
+            name: Sell rate
+          - entity: input_number.trader_soc_sell_to_a
+            name: Sell down to
+        title: Plan A
+        card_mod:
+          style: |
+            ha-card {  {% if is_state('sensor.trader_plan_letter','a') %}
+              border-color: yellow;
+              border-width: 8px;
+            {% endif %}
+            {% if is_state('input_boolean.trader_sell_enabled_a','off') %}
+              color: gray;
+            {%endif%} }
+      - type: entities
+        entities:
+          - entity: input_boolean.trader_sell_enabled_b
+            name: Enabled
+          - entity: input_number.trader_sell_price_b
+            name: Sell price
+          - entity: input_number.trader_export_rate_b
+            name: Sell rate
+          - entity: input_number.trader_soc_sell_to_b
+            name: Sell down to
+        title: Plan B
+        card_mod:
+          style: |
+            ha-card {  {% if is_state('sensor.trader_plan_letter','b') %}
+              border-color: yellow;
+              border-width: 8px;
+            {% elif is_state('input_boolean.trader_sell_enabled_b','off') %}
+              color: gray;
+            {%endif%} }
+      - type: entities
+        entities:
+          - entity: input_boolean.trader_sell_enabled_c
+            name: Enabled
+          - entity: input_number.trader_sell_price_c
+            name: Sell price
+          - entity: input_number.trader_export_rate_c
+            name: Sell rate
+          - entity: input_number.trader_soc_sell_to_c
+            name: Sell down to
+        title: Plan C
+        card_mod:
+          style: |
+            ha-card {  {% if is_state('sensor.trader_plan_letter','c') %}
+              border-color: yellow;
+              border-width: 8px;
+            {% elif is_state('input_boolean.trader_sell_enabled_c','off') %}
+              color: gray;
+            {%endif%} }
+      - type: entities
+        entities:
+          - entity: input_boolean.trader_sell_enabled_d
+            name: Enabled
+          - entity: input_number.trader_sell_price_d
+            name: Sell price
+          - entity: input_number.trader_export_rate_d
+            name: Sell rate
+          - entity: input_number.trader_soc_sell_to_d
+            name: Sell down to
+        title: Plan D
+        card_mod:
+          style: |
+            ha-card {  {% if is_state('sensor.trader_plan_letter','d') %}
+              border-color: yellow;
+              border-width: 8px;
+            {% elif is_state('input_boolean.trader_sell_enabled_d','off') %}
+              color: gray;
+            {%endif%} }
+      - type: entities
+        entities:
+          - entity: input_boolean.trader_sell_enabled_e
+            name: Enabled
+          - entity: input_number.trader_sell_price_e
+            name: Sell price
+          - entity: input_number.trader_export_rate_e
+            name: Sell rate
+          - entity: input_number.trader_soc_sell_to_e
+            name: Sell down to
+        title: Plan E
+        card_mod:
+          style: |
+            ha-card {  {% if is_state('sensor.trader_plan_letter','e') %}
+              border-color: yellow;
+              border-width: 8px;
+            {% elif is_state('input_boolean.trader_sell_enabled_e','off') %}
+              color: gray;
+            {%endif%} }
+      - type: custom:power-flow-card-plus
+        entities:
+          battery:
+            state_of_charge: sensor.sigen_plant_battery_state_of_charge
+            entity: sensor.sigen_plant_battery_power
+            invert_state: true
+          grid:
+            entity: number.sigenergy_net_grid_flow
+            secondary_info: {}
+          solar:
+            entity: sensor.sigen_inverter_pv_power
+            display_zero_state: true
+            secondary_info:
+              entity: sensor.solcast_pv_forecast_forecast_remaining_today
+              unit_of_measurement: kWh
+          home:
+            secondary_info: {}
+            entity: number.sig_house_flow
+        clickable_entities: true
+        display_zero_lines:
+          mode: show
+          transparency: 50
+          grey_color:
+            - 189
+            - 189
+            - 189
+        use_new_flow_rate_model: true
+        w_decimals: 0
+        kw_decimals: 1
+        min_flow_rate: 0.75
+        max_flow_rate: 6
+        max_expected_power: 30000
+        min_expected_power: 0.01
+        watt_threshold: 1000
+        transparency_zero_lines: 0
+        sort_individual_devices: false
+        grid_options:
+          columns: 12
+          rows: 6
+      - type: entities
+        entities:
+          - entity: input_number.trader_export_rate_z
+        title: No battery exports (Plan Z)
+        card_mod:
+          style: |
+            ha-card {  {% if is_state('sensor.trader_plan_letter','z') %}
+              border-color: yellow;
+              border-width: 8px;
+            {%endif%} }
+      - type: entities
+        entities:
+          - entity: input_number.trader_charge_from_grid_price
+            name: Priced under
+          - entity: binary_sensor.trader_charge_from_grid_price_met
+        title: Charge from Grid
+        card_mod:
+          style: >
+            ha-card {  {% if
+            is_state('binary_sensor.trader_charge_fr_grid_price_met','on') %}
+              border-color: yellow;
+              border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
+              color: gray;
+            {%endif%} }
+      - type: entities
+        entities:
+          - input_boolean.trader_divert_solar_enabled
+          - input_number.trader_solar_divert_sell_price
+        title: Excess Solar Exports
+        card_mod:
+          style: >
+            ha-card {  {% if
+            is_state('binary_sensor.trader_solar_divert_conditions_met', 'on')
+            %}
+              border-color: yellow;
+              border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
+              color: gray;
+            {%endif%} }
+      - type: custom:power-flow-card-plus
+        entities:
+          battery:
+            entity:
+              consumption: number.sigen_plant_ess_max_discharging_limit
+              production: number.sigen_plant_ess_max_charging_limit
+          grid:
+            entity:
+              production: number.sigen_plant_grid_export_limitation
+              consumption: number.sigen_plant_grid_import_limitation
+              unit_of_measurement: kW
+          solar:
+            entity: number.sigen_plant_pv_max_power_limit
+            display_zero_state: true
+        clickable_entities: true
+        display_zero_lines:
+          mode: show
+          transparency: 50
+          grey_color:
+            - 189
+            - 189
+            - 189
+        min_flow_rate: 0
+        transparency_zero_lines: 0
+        grid_options:
+          columns: 12
+          rows: 6
+      - type: entities
+        entities:
+          - input_boolean.trader_enable_auto_change_export_limit
+          - input_boolean.trader_increase_export_rate_by_solar
+          - input_boolean.trader_enable_auto_selling_from_battery
+        title: Settings
+      - type: entities
+        entities:
+          - entity: input_number.trader_prefer_grid_priced_under
+            name: Priced under
+        title: Use grid instead of battery
+        card_mod:
+          style: >
+            ha-card {  {% if
+            is_state('binary_sensor.trader_use_cheap_grid_not_battery', 'on') %}
+              border-color: yellow;
+              border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
+              color: gray;
+            {%endif%} }
+    column_span: 4
+  - type: grid
+    cards: []
+    column_span: 2
+  - type: grid
+    cards:
+      - type: logbook
+        target:
+          entity_id:
+            - sensor.trader_stop_at_soc
+            - sensor.trader_plan_letter
+            - input_boolean.trader_enable_auto_selling_from_battery
+            - input_boolean.trader_increase_export_rate_by_solar
+            - sensor.trader_battery_discharge_rate_chosen_from_plan
+            - input_boolean.trader_enable_auto_change_export_limit
+            - binary_sensor.trader_exporting_criteria_met
+            - sensor.trader_mode
+            - binary_sensor.trader_grid_price_negative
+            - number.sigen_plant_pv_max_power_limit
+            - number.sigen_plant_grid_export_limitation
+            - sensor.trader_buy_price
+            - sensor.trader_sell_price
+            - input_boolean.trader_divert_solar_enabled
+            - binary_sensor.trader_solar_divert_conditions_met
+            - sensor.sigen_plant_battery_state_of_charge
+            - number.sigen_plant_ess_charge_cut_off_state_of_charge
+            - binary_sensor.trader_fit_price_negative
+            - input_number.trader_charge_from_grid_price
+            - binary_sensor.trader_charge_from_grid_price_met
+        grid_options:
+          columns: 45
+          rows: auto
+        hours_to_show: 2
+        title: Logs
+    column_span: 4
+  - type: grid
+    cards:
+      - type: heading
+        heading: Debug
+        heading_style: title
+      - type: entities
+        entities:
+          - entity: sensor.trader_sell_price
+          - entity: sensor.trader_buy_price
+          - entity: input_number.trader_solar_divert_sell_price
+          - entity: sensor.trader_spare_solar
+          - entity: sensor.trader_plan_letter
+          - entity: sensor.trader_battery_discharge_rate_chosen_from_plan
+          - entity: number.sigen_plant_grid_export_limitation
+          - entity: sensor.trader_stop_at_soc
+          - entity: input_boolean.trader_increase_export_rate_by_solar
+          - entity: select.sigen_plant_remote_ems_control_mode
+          - entity: sensor.trader_mode
+          - entity: binary_sensor.trader_exporting_criteria_met
+          - entity: sensor.trader_cheapest_buy_price
+          - entity: binary_sensor.trader_grid_price_negative
+          - entity: binary_sensor.trader_fit_price_negative
+          - entity: sensor.my_amber_sell_price_sensor
+          - entity: sensor.my_amber_buy_price_sensor
+          - entity: input_boolean.trader_divert_solar_enabled
+          - entity: binary_sensor.trader_solar_divert_conditions_met
+          - entity: sensor.sigen_plant_battery_state_of_charge
+          - entity: number.sigen_plant_ess_charge_cut_off_state_of_charge
+          - entity: input_number.trader_charge_from_grid_price
+          - entity: binary_sensor.trader_charge_from_grid_price_met
+        grid_options:
+          columns: 21
+          rows: auto
+    column_span: 4
