@@ -18,7 +18,7 @@ input_number:
   trader_sell_price_a:
     name: Battery sell price A
     <<: &shared1
-      min: 0
+      min: -999
       max: 25000
       step: 1
       mode: box
