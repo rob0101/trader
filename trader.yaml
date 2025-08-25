@@ -186,7 +186,7 @@ binary_sensor:
       trader_charge_from_grid_price_met:
         friendly_name: "Charge Battery From Grid Price Met"
         value_template: >
-          {{ states('trader_buy_price')|float(999) < states('trader_charge_from_grid_price')|float(0) }}
+          {{ states('sensor.trader_buy_price')|float(999) < states('input_number.trader_charge_from_grid_price')|float(0) }}
         
       trader_use_cheap_grid_not_battery:
         friendly_name: Use Cheap Grid instead of from battery

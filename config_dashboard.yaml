@@ -397,11 +397,11 @@ sections:
         card_mod:
           style: >
             ha-card {  {% if
-            is_state('binary_sensor.trader_charge_fr_grid_price_met','on') %}
+            is_state('binary_sensor.trader_charge_from_grid_price_met','on') %}
               border-color: yellow;
-              border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
-              color: gray;
-            {%endif%} }
+              border-width: 8px;
+              {% endif %}
+              }
       - type: entities
         entities:
           - entity: input_number.trader_prefer_grid_priced_under
