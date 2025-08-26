@@ -1,9 +1,4 @@
 title: Trader
-card_mod:
-  style: |
-    ha-card {
-      ha-textfield$ { .mdc-text-field { height: 3em !important;}}
-      }
 views:
   - title: Amber based Sig automations
     path: settings
@@ -246,7 +241,17 @@ sections:
       - type: entities
         entities:
           - entity: input_boolean.trader_sell_enabled_a
-            name: Enabled
+            name: Plan A
+          - entity: input_boolean.trader_sell_enabled_b
+            name: Plan B
+          - entity: input_boolean.trader_sell_enabled_c
+            name: Plan C
+          - entity: input_boolean.trader_sell_enabled_d
+            name: Plan D
+          - entity: input_boolean.trader_sell_enabled_e
+            name: Plan E
+      - type: entities
+        entities:
           - entity: input_number.trader_sell_price_a
             name: Sell price
           - entity: input_number.trader_export_rate_a
@@ -254,6 +259,10 @@ sections:
           - entity: input_number.trader_soc_sell_to_a
             name: Sell down to
         title: Plan A
+        visibility:
+          - condition: state
+            entity: input_boolean.trader_sell_enabled_a
+            state: "on"
         card_mod:
           style: |
             ha-card {  {% if is_state('sensor.trader_plan_letter','a') %}
@@ -265,8 +274,6 @@ sections:
             {%endif%} }
       - type: entities
         entities:
-          - entity: input_boolean.trader_sell_enabled_b
-            name: Enabled
           - entity: input_number.trader_sell_price_b
             name: Sell price
           - entity: input_number.trader_export_rate_b
@@ -274,6 +281,10 @@ sections:
           - entity: input_number.trader_soc_sell_to_b
             name: Sell down to
         title: Plan B
+        visibility:
+          - condition: state
+            entity: input_boolean.trader_sell_enabled_b
+            state: "on"
         card_mod:
           style: |
             ha-card {  {% if is_state('sensor.trader_plan_letter','b') %}
@@ -284,8 +295,6 @@ sections:
             {%endif%} }
       - type: entities
         entities:
-          - entity: input_boolean.trader_sell_enabled_c
-            name: Enabled
           - entity: input_number.trader_sell_price_c
             name: Sell price
           - entity: input_number.trader_export_rate_c
@@ -293,6 +302,10 @@ sections:
           - entity: input_number.trader_soc_sell_to_c
             name: Sell down to
         title: Plan C
+        visibility:
+          - condition: state
+            entity: input_boolean.trader_sell_enabled_c
+            state: "on"
         card_mod:
           style: |
             ha-card {  {% if is_state('sensor.trader_plan_letter','c') %}
@@ -303,8 +316,6 @@ sections:
             {%endif%} }
       - type: entities
         entities:
-          - entity: input_boolean.trader_sell_enabled_d
-            name: Enabled
           - entity: input_number.trader_sell_price_d
             name: Sell price
           - entity: input_number.trader_export_rate_d
@@ -312,6 +323,10 @@ sections:
           - entity: input_number.trader_soc_sell_to_d
             name: Sell down to
         title: Plan D
+        visibility:
+          - condition: state
+            entity: input_boolean.trader_sell_enabled_d
+            state: "on"
         card_mod:
           style: |
             ha-card {  {% if is_state('sensor.trader_plan_letter','d') %}
@@ -322,8 +337,6 @@ sections:
             {%endif%} }
       - type: entities
         entities:
-          - entity: input_boolean.trader_sell_enabled_e
-            name: Enabled
           - entity: input_number.trader_sell_price_e
             name: Sell price
           - entity: input_number.trader_export_rate_e
@@ -331,6 +344,10 @@ sections:
           - entity: input_number.trader_soc_sell_to_e
             name: Sell down to
         title: Plan E
+        visibility:
+          - condition: state
+            entity: input_boolean.trader_sell_enabled_e
+            state: "on"
         card_mod:
           style: |
             ha-card {  {% if is_state('sensor.trader_plan_letter','e') %}
@@ -491,6 +508,7 @@ sections:
             - binary_sensor.trader_fit_price_negative
             - input_number.trader_charge_from_grid_price
             - binary_sensor.trader_charge_from_grid_price_met
+            - binary_sensor.trader_use_cheap_grid_not_battery
         grid_options:
           columns: 45
           rows: auto
@@ -527,7 +545,9 @@ sections:
           - entity: number.sigen_plant_ess_charge_cut_off_state_of_charge
           - entity: input_number.trader_charge_from_grid_price
           - entity: binary_sensor.trader_charge_from_grid_price_met
+          - entity: binary_sensor.trader_use_cheap_grid_not_battery
         grid_options:
           columns: 21
           rows: auto
     column_span: 4
+
