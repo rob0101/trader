@@ -15,6 +15,10 @@ This collection of files provides tools to help run automated trading of electri
 
 One of the options will be battery -> grid selling for tiered prices, so you can export quickly to low SOCs for high spike prices and export slower to higher SOCs for lower prices. There will be a price trigger for charging from the grid, and price trigger for using the grid instead of the battery, a price trigger for exporting solar to the grid and more.
 
+The dashboard included in this package should be seen as a starting point for your own work.  You can keep it, add to it or rewrite it.  The key components to make things work are in the trader.yaml file which you'll not need to change (unless you really want to).
+
+Similarly, automations shared (at a later date) in this package can be used as they are, adapted or discarded.
+
 ## Installation
 
 ### Install trader.yaml in a "packages" directory 
