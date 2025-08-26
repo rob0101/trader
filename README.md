@@ -86,19 +86,19 @@ The battery discharge (sell) plans named A to E are optional. They are checked a
 
 In normal operations you might not want all Plans to be active, perhaps just 2 plans, one to catch a price that you're happy to sell into slower and one you'd want to sell into really fast.  e.g. you might want to always sell from your battery at a rate of 2kW if the sell price exceeds 30c.  If the price spikes to say $1 you're probably happier to sell faster, maybe at 30kW (on a 3 phase system, 3 x 10kW per phase).  You want your exports to stop at some point and that's defined by the minimal battery State Of Charge (SOC). Again you might be happy to sell down to 10% if you're earing $1/kwh, but only to 50% SOC if the price is 32c/kWh.
 
-During price spikes with Amber people often try to manage their battery to last until the end of a spike.  The forecasts might suggest 3 hours of high prices.  It's on those occassions you might want to enable more price points for different export rates and minimum SOCs.
+During price spikes with Amber people often try to manage their battery to last until the end of a spike.  The forecasts might suggest 3 hours of high prices.  It's on those occassions you might want to enable more price points (Plans) for different export rates and minimum SOCs.
 
 On the spike nights you might also choose to buy from the grid at unusually high prices. The Sigenergy batteries can change from selling to buying really quickly, so we can "buy the dips", e.g.  the price might be $18/kWh for a while and suddenly drop to 70c for 5m.  You can buy at 70c to sell at $15 later.
 
-With so many batteries being controlled, Amber can get very slow to respond to these rapid price swings. Using buy and sell price triggers on out Sig systems gives us super fast responses.
+With so many batteries being controlled, Amber's Smartshift can get very slow to respond to these rapid price swings. Using buy and sell price triggers on our Sig systems gives us super fast responses.
 
 ### The logic of buying from the grid instead of drawing from the battery
 
-This option exists so that you can choose to preserve what's in the battery if the grid import price is below a threshold.  Some days I have certain household loads that I want to run that exceed the solar output at the time. In the Sig's Maximum Self Consumption mode, the battery will be used to cover the shortfall from solar. The power used from the battery might be better saved for later in the day or might be saved to sell later.  In those circumstances, buying from the grid to cover the solar shortfall, at say 5c/kWh can be a good move.
+This option exists so that you can choose to preserve what's in the battery if the grid import price is below a threshold.  Some days I have certain household loads that I want to run that exceed the solar output at the time. In the Sig's Maximum Self Consumption mode, the battery will be used to cover the shortfall from solar. The power used from the battery might be better saved to use later in the day or might be saved to sell later.  In those circumstances, buying from the grid to cover the solar shortfall, at say 5c/kWh can be a good move.
 
 ### Exporting excess solar
 
-Often with Amber, it makes sense to sell your solar early in the day and late in the day.  These typically are the highest prices for solar.  Selling early or late makes sense if the sell price now is higher than what you will or have paid to import from the grid. It also makes sense if there's going to be plenty of solar for your battery/house later in the day.
+Often with Amber, it makes sense to sell your solar early in the day and late in the day.  These typically are the highest prices for solar.  Selling early or late makes sense if the sell price now is higher than what you will pay or have paid to import from the grid. It also makes sense if there's going to be plenty of solar for your battery/house later in the day.
 
 ### The next steps for this project
 
