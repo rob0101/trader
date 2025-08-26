@@ -74,7 +74,7 @@ Save the new dashboard.
 
 You should then have something that looks similar to this
 
-![Screenshot 2025-08-23 at 2 21 54 pm](https://github.com/user-attachments/assets/17e99af5-a259-4335-8d7e-b26d53b32cac)
+<img width="915" height="755" src="https://github.com/user-attachments/assets/8a81a62c-821c-4193-b509-d7321d3c4350" />
 
 At this stage, I only need testers to get this far and report issues.
 
