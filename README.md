@@ -45,6 +45,7 @@ We deal in cents not dollar from here on.
 ### Tell HA to include the packages contents
 
 Edit configuration.yaml and add (if not already there) an instruction to read packages from a specific directory.
+To edit the file you need HA to have the **File Editor** installed, via Settings -> Add Ons.
 
 ```
 # Use packages in /packages folder
