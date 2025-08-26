@@ -398,7 +398,7 @@ sections:
       - type: entities
         entities:
           - entity: input_number.trader_export_rate_z
-        title: No battery exports (Plan Z)
+        title: No Plan (Plan Z)
         card_mod:
           style: |
             ha-card {  {% if is_state('sensor.trader_plan_letter','z') %}
@@ -550,4 +550,3 @@ sections:
           columns: 21
           rows: auto
     column_span: 4
-
