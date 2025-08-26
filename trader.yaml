@@ -181,7 +181,7 @@ binary_sensor:
         friendly_name: "Divert solar to grid conditions met"
         value_template: >
           {{ states('sensor.trader_sell_price')|float(0) > states('input_number.trader_solar_divert_sell_price')|float(99)
-             and is_state('input_boolean.trader_divert_solar_enabled','on') }}
+             and is_state('input_boolean.trader_divert_solar_enabled','on') and is_state('trader_fit_price_negative', 'off') }}
 
       trader_charge_from_grid_price_met:
         friendly_name: "Charge Battery From Grid Price Met"
@@ -275,9 +275,9 @@ sensor:
           {% set spare_solar = states('sensor.trader_spare_solar') | float(default=0) %}
           {% set enabled = is_state('input_boolean.trader_increase_export_rate_by_solar', 'on') %}
           {% if enabled %}
-            {% set limit = (new_kw + spare_solar + 0.5) | int %}
+            {% set limit = (new_kw + spare_solar) | int %}
           {% else %}
-            {% set limit = new_kw + 0.5 | int %}
+            {% set limit = new_kw | int %}
           {% endif %}
           {% if limit > states('sensor.max_grid_exports') | float %}
             {% set limit = states('sensor.max_grid_exports') | float %}
