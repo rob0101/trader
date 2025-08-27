@@ -73,6 +73,7 @@ input_number:
       step: 1
       mode: box
       unit_of_measurement: "%"
+      icon: 'mdi:battery-20'
 
   trader_soc_sell_to_b:
     name: Battery sell soc B
@@ -106,6 +107,7 @@ input_number:
       step: 1
       mode: box
       unit_of_measurement: kW
+      icon: 'mdi:flash'
     
   trader_export_rate_b:
     name: Battery sell rate B
