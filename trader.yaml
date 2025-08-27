@@ -26,6 +26,7 @@ input_number:
       step: 1
       mode: box
       unit_of_measurement: cents
+      icon: 'mdi:currency-usd'
   
   trader_sell_price_b:
     name: Battery sell price B
