@@ -172,16 +172,16 @@ binary_sensor:
             false
           {% endif %}
 
-      trader_grid_price_negative:
-        friendly_name: "Grid Import Price is Negative"
-        unique_id: trader_buy_price_negative
+      trader_buy_price_is_negative:
+        friendly_name: "Grid Buy Price is Negative"
+        unique_id: trader_buy_price_is_negative
         value_template: >
           {% set price = states('sensor.trader_buy_price')|float %}
           {{ price <0 }}
 
-      trader_fit_price_negative:
-        friendly_name: "Grid Export Price is Negative"
-        unique_id: trader_sell_price_negative
+      trader_sell_price_is_negative:
+        friendly_name: "Grid Sell Price is Negative"
+        unique_id: trader_sell_price_is_negative
         value_template: >
           {% set price = states('sensor.trader_sell_price')|float %}
           {{ price <0 }}
@@ -191,7 +191,7 @@ binary_sensor:
         unique_id: trader_solar_divert_conditions_met
         value_template: >
           {{ states('sensor.trader_sell_price')|float(0) > states('input_number.trader_solar_divert_sell_price')|float(99)
-             and is_state('input_boolean.trader_divert_solar_enabled','on') and is_state('binary_sensor.trader_fit_price_negative', 'off') }}
+             and states('input_boolean.trader_divert_solar_enabled') and states('binary_sensor.trader_sell_price_is_negative') }}
 
       trader_charge_from_grid_price_met:
         friendly_name: "Charge Battery From Grid Price Met"
@@ -216,7 +216,7 @@ sensor:
         friendly_name: "Pref Mode"
         unique_id: trader_preferred_mode
         value_template: >
-          {% set negative_buy = is_state('binary_sensor.trader_grid_price_negative', 'on') %}
+          {% set negative_buy = is_state('binary_sensor.trader_buy_price_is_negative', 'on') %}
           {% if is_state('binary_sensor.trader_exporting_criteria_met', 'on') %}
           Command Discharging (PV First)
           {% else %}

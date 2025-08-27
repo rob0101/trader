@@ -368,12 +368,6 @@ sections:
           solar:
             entity: sensor.sigen_inverter_pv_power
             display_zero_state: true
-            secondary_info:
-              entity: sensor.solcast_pv_forecast_forecast_remaining_today
-              unit_of_measurement: kWh
-          home:
-            secondary_info: {}
-            entity: number.sig_house_flow
         clickable_entities: true
         display_zero_lines:
           mode: show
@@ -398,6 +392,7 @@ sections:
       - type: entities
         entities:
           - entity: input_number.trader_export_rate_z
+            name: Allow exports up to
         title: No Plan (Plan Z)
         card_mod:
           style: |
@@ -496,7 +491,6 @@ sections:
             - input_boolean.trader_enable_auto_change_export_limit
             - binary_sensor.trader_exporting_criteria_met
             - sensor.trader_mode
-            - binary_sensor.trader_grid_price_negative
             - number.sigen_plant_pv_max_power_limit
             - number.sigen_plant_grid_export_limitation
             - sensor.trader_buy_price
@@ -505,10 +499,12 @@ sections:
             - binary_sensor.trader_solar_divert_conditions_met
             - sensor.sigen_plant_battery_state_of_charge
             - number.sigen_plant_ess_charge_cut_off_state_of_charge
-            - binary_sensor.trader_fit_price_negative
             - input_number.trader_charge_from_grid_price
             - binary_sensor.trader_charge_from_grid_price_met
             - binary_sensor.trader_use_cheap_grid_not_battery
+            - number.sigen_plant_pcs_export_limitation
+            - binary_sensor.trader_sell_price_is_negative
+            - binary_sensor.trader_buy_price_is_negative
         grid_options:
           columns: 45
           rows: auto
@@ -535,8 +531,8 @@ sections:
           - entity: sensor.trader_mode
           - entity: binary_sensor.trader_exporting_criteria_met
           - entity: sensor.trader_cheapest_buy_price
-          - entity: binary_sensor.trader_grid_price_negative
-          - entity: binary_sensor.trader_fit_price_negative
+          - entity: binary_sensor.trader_buy_price_is_negative
+          - entity: binary_sensor.trader_sell_price_is_negative
           - entity: sensor.my_amber_sell_price_sensor
           - entity: sensor.my_amber_buy_price_sensor
           - entity: input_boolean.trader_divert_solar_enabled
@@ -546,6 +542,7 @@ sections:
           - entity: input_number.trader_charge_from_grid_price
           - entity: binary_sensor.trader_charge_from_grid_price_met
           - entity: binary_sensor.trader_use_cheap_grid_not_battery
+          - entity: number.sigen_plant_grid_export_limitation
         grid_options:
           columns: 21
           rows: auto
