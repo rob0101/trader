@@ -105,3 +105,5 @@ Often with Amber, it makes sense to sell your solar early in the day and late in
 At this stage, I only need testers to get this far and report issues.
 
 I have some automations that will be uploaded once we have proven we can get this far.
+
+Note that even though the dashboard shows a bunch of user adjustable settings, e.g. a sell price, you're not constrained to changing these manually.  You can layer automations on top of these services, e.g. you might want to automatically disable all the lower priced sell Plans on low production solar days, or you might automatically adjust the sell price to be low on excess solar days.  Think of everything as being the basic building blocks to achieve your goals.
