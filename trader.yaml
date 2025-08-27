@@ -174,14 +174,14 @@ binary_sensor:
 
       trader_grid_price_negative:
         friendly_name: "Grid Import Price is Negative"
-        unique_id: trader_fit_price_negative
+        unique_id: trader_buy_price_negative
         value_template: >
           {% set price = states('sensor.trader_buy_price')|float %}
           {{ price <0 }}
 
       trader_fit_price_negative:
         friendly_name: "Grid Export Price is Negative"
-        unique_id: trader_grid_price_negative
+        unique_id: trader_sell_price_negative
         value_template: >
           {% set price = states('sensor.trader_sell_price')|float %}
           {{ price <0 }}
@@ -191,7 +191,7 @@ binary_sensor:
         unique_id: trader_solar_divert_conditions_met
         value_template: >
           {{ states('sensor.trader_sell_price')|float(0) > states('input_number.trader_solar_divert_sell_price')|float(99)
-             and is_state('input_boolean.trader_divert_solar_enabled','on') and is_state('trader_fit_price_negative', 'off') }}
+             and is_state('input_boolean.trader_divert_solar_enabled','on') and is_state('binary_sensor.trader_fit_price_negative', 'off') }}
 
       trader_charge_from_grid_price_met:
         friendly_name: "Charge Battery From Grid Price Met"
