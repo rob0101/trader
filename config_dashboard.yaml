@@ -363,7 +363,9 @@ sections:
             entity: sensor.sigen_plant_battery_power
             invert_state: true
           grid:
-            entity: number.sigenergy_net_grid_flow
+            entity:
+              consumption: sensor.sigen_plant_grid_import_power
+              production: sensor.sigen_plant_grid_export_power
             secondary_info: {}
           solar:
             entity: sensor.sigen_inverter_pv_power
