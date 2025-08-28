@@ -520,28 +520,28 @@ sections:
         entities:
           - entity: sensor.trader_sell_price
           - entity: sensor.trader_buy_price
+          - entity: binary_sensor.trader_buy_price_is_negative
+          - entity: binary_sensor.trader_sell_price_is_negative
+          - entity: binary_sensor.trader_solar_divert_conditions_met
+          - entity: binary_sensor.trader_charge_from_grid_price_met
+          - entity: binary_sensor.trader_use_cheap_grid_not_battery
+          - entity: binary_sensor.trader_exporting_criteria_met
+          - entity: input_boolean.trader_increase_export_rate_by_solar
+          - entity: input_boolean.trader_divert_solar_enabled
           - entity: input_number.trader_solar_divert_sell_price
+          - entity: input_number.trader_charge_from_grid_price
           - entity: sensor.trader_spare_solar
           - entity: sensor.trader_plan_letter
           - entity: sensor.trader_battery_discharge_rate_chosen_from_plan
-          - entity: number.sigen_plant_grid_export_limitation
           - entity: sensor.trader_stop_at_soc
-          - entity: input_boolean.trader_increase_export_rate_by_solar
-          - entity: select.sigen_plant_remote_ems_control_mode
           - entity: sensor.trader_mode
-          - entity: binary_sensor.trader_exporting_criteria_met
           - entity: sensor.trader_cheapest_buy_price
-          - entity: binary_sensor.trader_buy_price_is_negative
-          - entity: binary_sensor.trader_sell_price_is_negative
           - entity: sensor.my_amber_sell_price_sensor
           - entity: sensor.my_amber_buy_price_sensor
-          - entity: input_boolean.trader_divert_solar_enabled
-          - entity: binary_sensor.trader_solar_divert_conditions_met
+          - entity: select.sigen_plant_remote_ems_control_mode
           - entity: sensor.sigen_plant_battery_state_of_charge
           - entity: number.sigen_plant_ess_charge_cut_off_state_of_charge
-          - entity: input_number.trader_charge_from_grid_price
-          - entity: binary_sensor.trader_charge_from_grid_price_met
-          - entity: binary_sensor.trader_use_cheap_grid_not_battery
+          - entity: number.sigen_plant_grid_export_limitation
           - entity: number.sigen_plant_grid_export_limitation
         grid_options:
           columns: 21
