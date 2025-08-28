@@ -291,7 +291,8 @@ sensor:
           {% set new_kw = states(entity_id) | float(default=0) %}
           {% set spare_solar = states('sensor.trader_spare_solar') | float(default=0) %}
           {% set enabled = is_state('input_boolean.trader_increase_export_rate_by_solar', 'on') %}
-          {% if enabled %}
+          {% set positive_fit = is_state('sensor.trader_sell_price_is_negative', 'off') %}
+          {% if enabled and positive_fit %}
             {% set limit = (new_kw + spare_solar) | int %}
           {% else %}
             {% set limit = new_kw | int %}
