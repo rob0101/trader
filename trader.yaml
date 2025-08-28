@@ -213,7 +213,7 @@ sensor:
   - platform: template
     sensors:
       trader_mode:
-        friendly_name: "Pref Mode"
+        friendly_name: "Preferred Mode"
         unique_id: trader_preferred_mode
         value_template: >
           {% set negative_buy = is_state('binary_sensor.trader_buy_price_is_negative', 'on') %}
