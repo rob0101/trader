@@ -166,7 +166,7 @@ binary_sensor:
         friendly_name: "Exporting Criteria Met"
         unique_id: trader_exporting_criteria_met
         value_template: >
-          {% if states('input_boolean.trader_enable_auto_selling_from_battery') and states('sensor.trader_plan_letter')  != 'z' %}
+          {% if is_state('input_boolean.trader_enable_auto_selling_from_battery','on') and states('sensor.trader_plan_letter')  != 'z' %}
             true
           {% else %}
             false
