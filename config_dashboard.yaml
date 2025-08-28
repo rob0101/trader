@@ -357,6 +357,7 @@ sections:
               color: gray;
             {%endif%} }
       - type: custom:power-flow-card-plus
+        title: Power flow now
         entities:
           battery:
             state_of_charge: sensor.sigen_plant_battery_state_of_charge
@@ -444,6 +445,7 @@ sections:
               color: gray;
             {%endif%} }
       - type: custom:power-flow-card-plus
+        title: Limits set now
         entities:
           battery:
             entity:
