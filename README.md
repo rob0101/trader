@@ -80,6 +80,9 @@ You should then have something that looks similar to this
 
 ![Screenshot 2025-08-29 at 1 10 54 pm](https://github.com/user-attachments/assets/6d23ab79-3b5c-431b-b1b8-af3b05170177)
 
+
+at the time of the screenshot, the import (buy) price in my region was negative, so automations shut down solar and started to run the house from the grid and top up the battery too.   Withnegative buy prices on Amber, we get a credit for the electricity we consume from the grid.
+
 ### The logic behind the A-E battery sell prices and rates
 
 The battery discharge (sell) plans named A to E are optional. They are checked against the current sell price to see which (if any) plan matches.  They are checked A to E, in that order.  As soon as one plan matches, it wins.  With that in mind you'd set Plan A to have the highest price and E have the lowest.
