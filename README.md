@@ -78,7 +78,7 @@ Save the new dashboard.
 
 You should then have something that looks similar to this
 
-<img width="915" height="755" src="https://github.com/user-attachments/assets/8a81a62c-821c-4193-b509-d7321d3c4350" />
+![Screenshot 2025-08-29 at 1 10 54 pm](https://github.com/user-attachments/assets/6d23ab79-3b5c-431b-b1b8-af3b05170177)
 
 ### The logic behind the A-E battery sell prices and rates
 
