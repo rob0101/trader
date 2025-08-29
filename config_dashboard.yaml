@@ -9,37 +9,6 @@ views:
       - type: grid
         column_span: 10
         cards:
-          - type: heading
-            heading_style: title
-            heading: Battery discharge setting by price
-            icon: mdi:lead-pencil
-          - type: custom:power-flow-card-plus
-            entities:
-              battery:
-                entity:
-                  consumption: number.sigen_plant_ess_max_discharging_limit
-                  production: number.sigen_plant_ess_max_charging_limit
-              grid:
-                entity:
-                  production: number.sigen_plant_pcs_import_limitation
-                  consumption: number.sigen_plant_grid_import_limitation
-                  unit_of_measurement: kW
-              solar:
-                entity: number.sigen_plant_pv_max_power_limit
-                display_zero_state: true
-            clickable_entities: true
-            display_zero_lines:
-              mode: show
-              transparency: 50
-              grey_color:
-                - 189
-                - 189
-                - 189
-            min_flow_rate: 0
-            transparency_zero_lines: 0
-            grid_options:
-              columns: 12
-              rows: 6
           - type: entities
             entities:
               - entity: input_boolean.trader_divert_solar_enabled
@@ -145,6 +114,37 @@ views:
                 {% elif is_state('input_boolean.trader_sell_enabled_e','Off') %}
                   color: gray;
                 {% endif %} }
+          - type: heading
+            heading_style: title
+            heading: Battery discharge setting by price
+            icon: mdi:lead-pencil
+          - type: custom:power-flow-card-plus
+            entities:
+              battery:
+                entity:
+                  consumption: number.sigen_plant_ess_max_discharging_limit
+                  production: number.sigen_plant_ess_max_charging_limit
+              grid:
+                entity:
+                  production: number.sigen_plant_pcs_import_limitation
+                  consumption: number.sigen_plant_grid_import_limitation
+                  unit_of_measurement: kW
+              solar:
+                entity: number.sigen_plant_pv_max_power_limit
+                display_zero_state: true
+            clickable_entities: true
+            display_zero_lines:
+              mode: show
+              transparency: 50
+              grey_color:
+                - 189
+                - 189
+                - 189
+            min_flow_rate: 0
+            transparency_zero_lines: 0
+            grid_options:
+              columns: 12
+              rows: 6
           - type: entities
             entities:
               - entity: input_number.trader_export_rate_z
