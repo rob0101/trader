@@ -506,14 +506,14 @@ sections:
             - input_number.trader_charge_from_grid_price
             - binary_sensor.trader_charge_from_grid_price_met
             - binary_sensor.trader_use_cheap_grid_not_battery
-            - number.sigen_plant_pcs_export_limitation
             - binary_sensor.trader_sell_price_is_negative
             - binary_sensor.trader_buy_price_is_negative
+            - number.sigen_plant_grid_import_limitation
         grid_options:
           columns: 45
           rows: auto
-        hours_to_show: 2
         title: Logs
+        hours_to_show: 3
     column_span: 4
   - type: grid
     cards:
@@ -551,3 +551,4 @@ sections:
           columns: 21
           rows: auto
     column_span: 4
+max_columns: 10
