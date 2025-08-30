@@ -295,16 +295,12 @@ sensor:
           {% set spare_solar = states('sensor.trader_spare_solar') | float(default=0) %}
           {% set enabled = is_state('input_boolean.trader_increase_export_rate_by_solar', 'on') %}
           {% set positive_fit = is_state('binary_sensor.trader_sell_price_is_negative', 'off') %}
-          {% set grid_export_limit = states('number.sigen_plant_grid_export_limitation')|float(0) %}
           {% if enabled and positive_fit %}
-            {% set limit = (new_kw + spare_solar) | int %}
+            {% set limit = (new_kw + spare_solar) | float | round(1) %}
           {% else %}
-            {% set limit = new_kw | int %}
+            {% set limit = new_kw | float | round (1) %}
           {% endif %}
-          {% if limit > grid_export_limit %}
-            {% set limit = grid_export_limit %}
-          {% endif %}
-          {{limit}}
+          {{limit | float}}
 #
       trader_stop_at_soc:
         friendly_name: "Export Discharge SOC based on plan"
