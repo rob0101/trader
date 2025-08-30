@@ -46,7 +46,7 @@ template:
 ```
 
 You can use sensors that are in AUD by changing the multiplier from 1 to 100.
-We deal in cents not dollar from here on.
+We deal in cents not dollar from here on, much like the Amber app.
 
 ### Tell HA to include the packages contents
 
