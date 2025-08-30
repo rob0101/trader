@@ -249,6 +249,7 @@ sensor:
         friendly_name: "Lowest Active Battery Sell Price"
         unique_id: trader_cheapest_buy_price
         unit_of_measurement: cents
+        icon_template: "mdi:cash"
         value_template: >
           {% set price = states('sensor.trader_sell_price') | float(default=0) %}
           {% set soc = states('sensor.sigen_inverter_battery_state_of_charge') | float(default=0) %}
@@ -268,6 +269,7 @@ sensor:
         friendly_name: "Current Spare Solar"
         unit_of_measurement: "kW"
         unique_id: trader_spare_solar
+        icon_template: "mdi:solar-power"
         value_template: >
           {% set pv_w = states('sensor.sigen_plant_pv_power') | float(default=0) %}
           {% set plant_active_pw = states('sensor.sigen_plant_plant_active_power') | float(default=0) %}
@@ -285,6 +287,7 @@ sensor:
         friendly_name: "Export Discharge Rate based on plan"
         unique_id: trader_battery_discharge_rate_chosen_from_plan
         unit_of_measurement: "kW"
+        icon_template: "mdi:transmission-tower-export"
         value_template: >
           {% set option_letter = states('sensor.trader_plan_letter') %}
           {% set entity_id = 'input_number.trader_export_rate_' + option_letter %}
@@ -307,6 +310,7 @@ sensor:
         friendly_name: "Export Discharge SOC based on plan"
         unique_id: trader_stop_at_soc
         unit_of_measurement: "%"
+        icon_template: "mdi:percent"
         value_template: >
           {% set option_letter = states('sensor.trader_plan_letter')  %}
           {{ states('input_number.trader_soc_sell_to_' + option_letter) | int(default=0) }}
@@ -315,6 +319,7 @@ sensor:
         friendly_name: "Amber Buy Price"
         unique_id: trader_buy_price
         unit_of_measurement: cents
+        icon_template: "mdi:cash"
         value_template: >
           {% set mult = state_attr('sensor.my_amber_buy_price_sensor', 'multiplier') |int(1) %}
           {{ states(states('sensor.my_amber_buy_price_sensor')) | float(default=0) * mult }}
@@ -323,6 +328,7 @@ sensor:
         friendly_name: "Amber Sell Price"
         unique_id: trader_sell_price
         unit_of_measurement: cents
+        icon_template: "mdi:cash-refund"
         value_template: >
          {% set mult = state_attr('sensor.my_amber_buy_price_sensor', 'multiplier') | int(1) %}
          {{ states(states('sensor.my_amber_sell_price_sensor'))| float(default=0) * mult }}

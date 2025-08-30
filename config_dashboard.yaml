@@ -256,6 +256,7 @@ sections:
             name: Sell price
           - entity: input_number.trader_export_rate_a
             name: Sell rate
+            icon: mdi:transmission-tower-export
           - entity: input_number.trader_soc_sell_to_a
             name: Sell down to
         title: Plan A
@@ -278,6 +279,7 @@ sections:
             name: Sell price
           - entity: input_number.trader_export_rate_b
             name: Sell rate
+            icon: mdi:transmission-tower-export
           - entity: input_number.trader_soc_sell_to_b
             name: Sell down to
         title: Plan B
@@ -299,6 +301,7 @@ sections:
             name: Sell price
           - entity: input_number.trader_export_rate_c
             name: Sell rate
+            icon: mdi:transmission-tower-export
           - entity: input_number.trader_soc_sell_to_c
             name: Sell down to
         title: Plan C
@@ -320,6 +323,7 @@ sections:
             name: Sell price
           - entity: input_number.trader_export_rate_d
             name: Sell rate
+            icon: mdi:transmission-tower-export
           - entity: input_number.trader_soc_sell_to_d
             name: Sell down to
         title: Plan D
@@ -341,6 +345,7 @@ sections:
             name: Sell price
           - entity: input_number.trader_export_rate_e
             name: Sell rate
+            icon: mdi:transmission-tower-export
           - entity: input_number.trader_soc_sell_to_e
             name: Sell down to
         title: Plan E
@@ -396,6 +401,7 @@ sections:
         entities:
           - entity: input_number.trader_export_rate_z
             name: Allow exports up to
+            icon: mdi:transmission-tower-export
         title: No Plan (Plan Z)
         card_mod:
           style: |
