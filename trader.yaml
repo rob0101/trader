@@ -277,7 +277,7 @@ sensor:
         unique_id: trader_spare_solar
         icon_template: "mdi:solar-power"
         value_template: >
-          {% set curtailed = states('sensor.trader_curtailed_solar_estimate')|float(default=-0.1
+          {% set curtailed = states('sensor.trader_curtailed_solar_estimate')|float(default=-0.1) %}
           {% set pv_kw = states('sensor.sigen_plant_pv_power') | float(default=0) %}
           {% set plant_active_kw = states('sensor.sigen_plant_plant_active_power') | float(default=0) %}
           {% set grid_sensor_kw = states('sensor.sigen_plant_grid_active_power') | float(default=0) %}
