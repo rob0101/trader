@@ -330,7 +330,7 @@ sensor:
         icon_template: "mdi:cash"
         value_template: >
           {% set mult = state_attr('sensor.my_amber_buy_price_sensor', 'multiplier') |int(1) %}
-          {{ states(states('sensor.my_amber_buy_price_sensor')) | float(default=0) * mult }}
+          {{ states(states('sensor.my_amber_buy_price_sensor')) | float(default=999) * mult }}
 
       trader_sell_price:
         friendly_name: "Amber Sell Price"
