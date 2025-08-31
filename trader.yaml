@@ -162,6 +162,9 @@ input_boolean:
   trader_enable_auto_selling_from_battery:
     name: Enable Exports
 
+  trader_toggle_plans_section_visibility_on_dashboard:
+    name: Toggle Plans Visibility
+
 binary_sensor:
   - platform: template
     sensors:

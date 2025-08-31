@@ -235,6 +235,11 @@ type: sections
 sections:
   - type: grid
     cards:
+      - type: entities
+        entities:
+          - entity: input_boolean.trader_toggle_plans_section_visibility_on_dashboard
+  - type: grid
+    cards:
       - type: heading
         heading: Plans
         heading_style: title
@@ -361,6 +366,27 @@ sections:
             {% elif is_state('input_boolean.trader_sell_enabled_e','off') %}
               color: gray;
             {%endif%} }
+      - type: entities
+        entities:
+          - entity: input_number.trader_export_rate_z
+            name: Allow exports up to
+            icon: mdi:transmission-tower-export
+          - entity: input_number.trader_soc_sell_to_z
+            name: Sell to SOC
+        title: No Plan (Plan Z)
+        card_mod:
+          style: |
+            ha-card {  {% if is_state('sensor.trader_plan_letter','z') %}
+              border-color: yellow;
+              border-width: 8px;
+            {%endif%} }
+    column_span: 4
+    visibility:
+      - condition: state
+        entity: input_boolean.trader_toggle_plans_section_visibility_on_dashboard
+        state: "on"
+  - type: grid
+    cards:
       - type: custom:power-flow-card-plus
         title: Power flow now
         entities:
@@ -397,20 +423,6 @@ sections:
         grid_options:
           columns: 12
           rows: 6
-      - type: entities
-        entities:
-          - entity: input_number.trader_export_rate_z
-            name: Allow exports up to
-            icon: mdi:transmission-tower-export
-          - entity: input_number.trader_soc_sell_to_z
-            name: Sell to SOC
-        title: No Plan (Plan Z)
-        card_mod:
-          style: |
-            ha-card {  {% if is_state('sensor.trader_plan_letter','z') %}
-              border-color: yellow;
-              border-width: 8px;
-            {%endif%} }
       - type: entities
         entities:
           - entity: input_number.trader_charge_from_grid_price
@@ -452,6 +464,12 @@ sections:
               border-width: 8px; {% elif is_state('input_boolean.trader_divert_solar_enabled','off') %}
               color: gray;
             {%endif%} }
+      - type: entities
+        entities:
+          - input_boolean.trader_enable_auto_change_export_limit
+          - input_boolean.trader_increase_export_rate_by_solar
+          - input_boolean.trader_enable_auto_selling_from_battery
+        title: Settings
       - type: custom:power-flow-card-plus
         title: Limits set now
         entities:
@@ -480,16 +498,7 @@ sections:
         grid_options:
           columns: 12
           rows: 6
-      - type: entities
-        entities:
-          - input_boolean.trader_enable_auto_change_export_limit
-          - input_boolean.trader_increase_export_rate_by_solar
-          - input_boolean.trader_enable_auto_selling_from_battery
-        title: Settings
-    column_span: 4
-  - type: grid
-    cards: []
-    column_span: 2
+    column_span: 10
   - type: grid
     cards:
       - type: logbook
