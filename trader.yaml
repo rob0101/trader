@@ -271,17 +271,20 @@ sensor:
         unique_id: trader_spare_solar
         icon_template: "mdi:solar-power"
         value_template: >
-          {% set pv_w = states('sensor.sigen_plant_pv_power') | float(default=0) %}
-          {% set plant_active_pw = states('sensor.sigen_plant_plant_active_power') | float(default=0) %}
-          {% set grid_sensor_pw = states('sensor.sigen_plant_grid_active_power') | float(default=0) %}
-          {% set spare = pv_w - plant_active_pw %}
-          {% if grid_sensor_pw < 0 %}
-            {% set spare = spare - grid_sensor_pw %}
+          {% set pv_kw = states('sensor.sigen_plant_pv_power') | float(default=0) %}
+          {% set plant_active_kw = states('sensor.sigen_plant_plant_active_power') | float(default=0) %}
+          {% set grid_sensor_kw = states('sensor.sigen_plant_grid_active_power') | float(default=0) %}
+          {% set spare = pv_kw - plant_active_kw %}
+          {% if grid_sensor_kw < 0 %}
+            {% set spare = spare - grid_sensor_kw %}
           {% endif %}
           {%  if spare < 0 %}
             {% set spare = 0 %}
           {% endif %}
-          {{ spare  }}
+          {%  if spare > pv_kw %}
+            {% set spare = pv_kw %}
+          {% endif %}
+          {{ spare | round(1) }}
 #
       trader_battery_discharge_rate_chosen_from_plan:
         friendly_name: "Export Discharge Rate based on plan"
