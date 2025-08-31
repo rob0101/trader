@@ -182,14 +182,14 @@ binary_sensor:
         friendly_name: "Grid Buy Price is Negative"
         unique_id: trader_buy_price_is_negative
         value_template: >
-          {% set price = states('sensor.trader_buy_price')|float %}
+          {% set price = states('sensor.trader_buy_price')|float(0) %}
           {{ price <0 }}
 
       trader_sell_price_is_negative:
         friendly_name: "Grid Sell Price is Negative"
         unique_id: trader_sell_price_is_negative
         value_template: >
-          {% set price = states('sensor.trader_sell_price')|float %}
+          {% set price = states('sensor.trader_sell_price')|float(0) %}
           {{ price <0 }}
 
       trader_solar_divert_conditions_met:
@@ -237,12 +237,12 @@ sensor:
         friendly_name: "Active Plan"
         unique_id: trader_plan_letter
         value_template: >
-          {% set price = states('sensor.trader_sell_price')| float %}
+          {% set price = states('sensor.trader_sell_price')| float(0) %}
           {% set soc = states('sensor.sigen_inverter_battery_state_of_charge') | float(default=0) %}
           {% set ns = namespace(pick='z') %}
           {% for l in ['a', 'b', 'c', 'd', 'e'] %}
-            {% set stop_at_soc = states('input_number.trader_soc_sell_to_' + l) | float(default=0) %}
-            {% set want_price = states('input_number.trader_sell_price_' + l) | float(default=0) %}
+            {% set stop_at_soc = states('input_number.trader_soc_sell_to_' + l) | float(default=50) %}
+            {% set want_price = states('input_number.trader_sell_price_' + l) | float(default=9999) %}
             {% set enabled = is_state('input_boolean.trader_sell_enabled_' + l, 'on') %}
             {% if enabled and price >= want_price and soc > stop_at_soc %}
               {% set ns.pick = l %}
@@ -261,8 +261,8 @@ sensor:
           {% set soc = states('sensor.sigen_inverter_battery_state_of_charge') | float(default=0) %}
           {% set ns = namespace(pick=0) %}
           {% for l in ['e', 'd', 'c', 'b', 'a'] %}
-            {% set stop_at_soc = states('input_number.trader_soc_sell_to_' + l) | float(default=0) %}
-            {% set want_price = states('input_number.trader_sell_price_' + l) | float(default=0) %}
+            {% set stop_at_soc = states('input_number.trader_soc_sell_to_' + l) | float(default=50) %}
+            {% set want_price = states('input_number.trader_sell_price_' + l) | float(default=999) %}
             {% set enabled = is_state('input_boolean.trader_sell_enabled_' + l, 'on') %}
             {% if enabled and  soc > stop_at_soc %}
               {% set ns.pick = want_price %}
@@ -339,7 +339,7 @@ sensor:
         icon_template: "mdi:cash-refund"
         value_template: >
           {% set mult = state_attr('sensor.my_amber_buy_price_sensor', 'multiplier') | int(1) %}
-          {{ states(states('sensor.my_amber_sell_price_sensor'))| float(default=0) * mult }}
+          {{ states(states('sensor.my_amber_sell_price_sensor'))| float(default=-999) * mult }}
 
       trader_curtailed_solar_estimate:
         friendly_name: "Curtailed Solar Estimate"
