@@ -13,6 +13,9 @@ template:
         state: "sensor.amber_true_five_minute_export_price"  
         attributes:
           multiplier: "1"
+      - name: "My Curtailed Solar Sensor"
+        unique_id: my_curtailed_solar_sensor
+        state: "number.potentially_curtailed_pv_kw"
 
 input_number:
 #####################
@@ -271,6 +274,7 @@ sensor:
         unique_id: trader_spare_solar
         icon_template: "mdi:solar-power"
         value_template: >
+          {% set curtailed = states('sensor.trader_curtailed_solar_estimate')|float(default=-1) %}
           {% set pv_kw = states('sensor.sigen_plant_pv_power') | float(default=0) %}
           {% set plant_active_kw = states('sensor.sigen_plant_plant_active_power') | float(default=0) %}
           {% set grid_sensor_kw = states('sensor.sigen_plant_grid_active_power') | float(default=0) %}
@@ -281,7 +285,9 @@ sensor:
           {%  if spare < 0 %}
             {% set spare = 0 %}
           {% endif %}
-          {%  if spare > pv_kw %}
+          {% if curtailed > 0 %}
+            {% set spare = spare + curtailed %}
+          {% elif spare > pv_kw %}
             {% set spare = pv_kw %}
           {% endif %}
           {{ spare | round(1) }}
@@ -329,9 +335,16 @@ sensor:
         unit_of_measurement: cents
         icon_template: "mdi:cash-refund"
         value_template: >
-         {% set mult = state_attr('sensor.my_amber_buy_price_sensor', 'multiplier') | int(1) %}
-         {{ states(states('sensor.my_amber_sell_price_sensor'))| float(default=0) * mult }}
+          {% set mult = state_attr('sensor.my_amber_buy_price_sensor', 'multiplier') | int(1) %}
+          {{ states(states('sensor.my_amber_sell_price_sensor'))| float(default=0) * mult }}
 
-
+      trader_curtailed_solar_estimate:
+        friendly_name: "Curtailed Solar Estimate"
+        unique_id: trader_curtailed_solar_estimate
+        unit_of_measurement: kW
+        icon_template: "mdi:solar-power"
+        value_template: >
+          {% set curtailed = states(states('sensor.my_curtailed_solar_sensor'))|float(default=-1) %}
+          {{ curtailed }}
 
 
