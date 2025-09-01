@@ -196,7 +196,7 @@ binary_sensor:
         friendly_name: "Divert solar to grid conditions met"
         unique_id: trader_solar_divert_conditions_met
         value_template: >
-          {{ states('sensor.trader_sell_price')|float(0) > states('input_number.trader_solar_divert_sell_price')|float(99)
+          {{ is_state('sensor.sigen_plant_grid_connection_status','On Grid') and states('sensor.trader_sell_price')|float(0) > states('input_number.trader_solar_divert_sell_price')|float(99)
              and is_state('input_boolean.trader_divert_solar_enabled', 'on') and is_state('binary_sensor.trader_sell_price_is_negative','off') }}
 
       trader_charge_from_grid_price_met:
