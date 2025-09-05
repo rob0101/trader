@@ -368,11 +368,7 @@ sections:
             {%endif%} }
       - type: entities
         entities:
-          - entity: input_number.trader_export_rate_z
-            name: Allow exports up to
-            icon: mdi:transmission-tower-export
-          - entity: input_number.trader_soc_sell_to_z
-            name: Sell to SOC
+          - entity: binary_sensor.trader_exporting_criteria_met
         title: No Plan (Plan Z)
         card_mod:
           style: |
@@ -567,8 +563,29 @@ sections:
           - entity: number.sigen_plant_grid_export_limitation
           - entity: sensor.sigen_plant_discharge_cut_off_soc
             icon: mdi:percent
+          - entity: sensor.sigen_plant_grid_connection_status
         grid_options:
           columns: 21
           rows: auto
     column_span: 4
 max_columns: 10
+badges:
+  - type: entity
+    show_name: true
+    show_state: true
+    show_icon: true
+    entity: sensor.trader_sell_price
+    name: Sell
+    show_entity_picture: false
+    state_content:
+      - state
+      - last_updated
+  - type: entity
+    show_name: true
+    show_state: true
+    show_icon: true
+    entity: sensor.trader_buy_price
+    name: Buy
+    state_content:
+      - state
+      - last_updated
