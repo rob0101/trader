@@ -103,6 +103,10 @@ This option exists so that you can choose to preserve what's in the battery if t
 
 Often with Amber, it makes sense to sell your solar early in the day and late in the day.  These typically are the highest prices for solar.  Selling early or late makes sense if the sell price now is higher than what you will pay or have paid to import from the grid. It also makes sense if there's going to be plenty of solar for your battery/house later in the day.
 
+### Preserve the battery
+
+Various automated system such as Amber's Smartshift offer "preserve" modes designed to keep the battery at the current level for a specified time. The dashboard provided here offers a more usful preserve that's split into two types, preserving at or below a state of charge (SOC) or at or above a SOC, or both together. These extend the usefulness of the Sig's built-in charge and discharge cut-off limits.
+
 ### Automations
 
 I've included (or will include) some example automations.  Create a new automation, edit it in yaml and paste the example file.  You then customise that automation via the friendly UI to suit your own needs.
