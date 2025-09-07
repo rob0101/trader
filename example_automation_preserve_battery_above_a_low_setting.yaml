@@ -1,0 +1,36 @@
+alias: Monitor preserve at lower battery SOC limit.
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - input_boolean.trader_enable_low_battery_preserve
+  - trigger: state
+    entity_id:
+      - sensor.trader_buy_price
+conditions: []
+actions:
+  - if:
+      - condition: state
+        entity_id: input_boolean.trader_enable_low_battery_preserve
+        state: "on"
+    then:
+      - action: number.set_value
+        metadata: {}
+        data:
+          value: >-
+            {{ states('input_number.trader_battery_preserve_lower_soc') |
+            float(100) }}
+        target:
+          entity_id:
+            - number.sigen_plant_ess_discharge_cut_off_state_of_charge
+    else:
+      - action: number.set_value
+        metadata: {}
+        data:
+          value: >-
+            {{ states('input_number.trader_battery_default_discharge_to_soc') |
+            float(100) }}
+        target:
+          entity_id:
+            - number.sigen_plant_ess_discharge_cut_off_state_of_charge
+mode: single
