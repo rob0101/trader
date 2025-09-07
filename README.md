@@ -103,10 +103,7 @@ This option exists so that you can choose to preserve what's in the battery if t
 
 Often with Amber, it makes sense to sell your solar early in the day and late in the day.  These typically are the highest prices for solar.  Selling early or late makes sense if the sell price now is higher than what you will pay or have paid to import from the grid. It also makes sense if there's going to be plenty of solar for your battery/house later in the day.
 
-### The next steps for this project
+### Automations
 
-At this stage, I only need testers to get this far and report issues.
+I've included (or will include) some example automations.  Create a new automation, edit it in yaml and paste the example file.  You then customise that automation via the friendly UI to suit your own needs.
 
-I have some automations that will be uploaded once we have proven we can get this far.
-
-Note that even though the dashboard shows a bunch of user adjustable settings, e.g. a sell price, you're not constrained to changing these manually.  You can layer automations on top of these services, e.g. you might want to automatically disable all the lower priced sell Plans on low production solar days, or you might automatically adjust the sell price to be low on excess solar days.  Think of everything as being the basic building blocks to achieve your goals.
