@@ -1,0 +1,55 @@
+alias: Respond to Negative Buy Price state change
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.trader_buy_price_is_negative
+conditions:
+  - condition: state
+    entity_id: sensor.sigen_plant_grid_connection_status
+    state: On Grid
+actions:
+  - action: notify.mobile_app_robs_iphone_16
+    metadata: {}
+    data:
+      message: >-
+        Negative buy price sensor has flipped. Price now
+        {{states('sensor.trader_buy_price')|int}}c.
+
+        Will toggle solar production on/off to reflect the change
+      title: Toggling solar on/off for negative buy price sensor change
+  - if:
+      - condition: state
+        entity_id: binary_sensor.trader_buy_price_is_negative
+        state: "on"
+    then:
+      - alias: PV => 0.1
+        action: number.set_value
+        metadata: {}
+        data:
+          value: "0.1"
+        target:
+          entity_id: number.sigen_plant_pv_max_power_limit
+      - alias: Charge from PV first
+        action: select.select_option
+        metadata: {}
+        data:
+          option: Command Charging (PV First)
+        target:
+          entity_id: select.sigen_plant_remote_ems_control_mode
+    else:
+      - action: number.set_value
+        metadata: {}
+        data:
+          value: "30"
+        target:
+          entity_id: number.sigen_plant_pv_max_power_limit
+        alias: PV => 30
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: Maximum Self Consumption
+        target:
+          entity_id: select.sigen_plant_remote_ems_control_mode
+        alias: Max Self Consumption
+mode: single
