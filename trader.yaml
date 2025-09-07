@@ -61,8 +61,8 @@ input_number:
 
   trader_charge_from_grid_price:
     name: Charge Battery From Grid Price
+    initial: 0
     <<: *shared1
-
 
 
 #####################
@@ -186,6 +186,9 @@ input_boolean:
   trader_toggle_plans_section_visibility_on_dashboard:
     name: Toggle Plans Visibility
 
+  trader_toggle_preserve_section_visibility_on_dashboard:
+    name: Toggle Preserve Visibility    
+
   trader_enable_high_battery_preserve:
     name: Enable High Battery Preserve
 
@@ -200,7 +203,7 @@ binary_sensor:
   - platform: template
     sensors:
       trader_exporting_criteria_met:
-        friendly_name: "Exporting Criteria Met"
+        friendly_name: "Exporting criteria met"
         unique_id: trader_exporting_criteria_met
         value_template: >
           {% if is_state('input_boolean.trader_enable_auto_selling_from_battery','on') and states('sensor.trader_plan_letter')  != 'z' %}
@@ -210,14 +213,14 @@ binary_sensor:
           {% endif %}
 
       trader_buy_price_is_negative:
-        friendly_name: "Grid Buy Price is Negative"
+        friendly_name: "Grid buy price is negative"
         unique_id: trader_buy_price_is_negative
         value_template: >
           {% set price = states('sensor.trader_buy_price')|float(0) %}
           {{ price <0 }}
 
       trader_sell_price_is_negative:
-        friendly_name: "Grid Sell Price is Negative"
+        friendly_name: "Grid sell price is negative"
         unique_id: trader_sell_price_is_negative
         value_template: >
           {% set price = states('sensor.trader_sell_price')|float(0) %}
@@ -231,7 +234,7 @@ binary_sensor:
              and is_state('input_boolean.trader_divert_solar_enabled', 'on') and is_state('binary_sensor.trader_sell_price_is_negative','off') }}
 
       trader_charge_from_grid_price_met:
-        friendly_name: "Charge Battery From Grid Price Met"
+        friendly_name: "Charge battery from grid price met"
         unique_id: trader_charge_from_grid_price_met
         value_template: >
           {{ states('sensor.trader_buy_price')|float(999) < states('input_number.trader_charge_from_grid_price')|float(0) }}
@@ -250,7 +253,7 @@ sensor:
   - platform: template
     sensors:
       trader_mode:
-        friendly_name: "Preferred Mode"
+        friendly_name: "Preferred mode"
         unique_id: trader_preferred_mode
         value_template: >
           {% set negative_buy = is_state('binary_sensor.trader_buy_price_is_negative', 'on') %}
@@ -265,7 +268,7 @@ sensor:
           {% endif %}
 #
       trader_plan_letter:
-        friendly_name: "Active Plan"
+        friendly_name: "Active plan"
         unique_id: trader_plan_letter
         value_template: >
           {% set price = states('sensor.trader_sell_price')| float(0) %}
@@ -283,10 +286,11 @@ sensor:
           {{ ns.pick }}
 #          
       trader_cheapest_buy_price:
-        friendly_name: "Lowest Active Battery Sell Price"
+        friendly_name: "Lowest active battery sell price"
         unique_id: trader_cheapest_buy_price
         unit_of_measurement: cents
         icon_template: "mdi:cash"
+        device_class: monetary
         value_template: >
           {% set price = states('sensor.trader_sell_price') | float(default=0) %}
           {% set soc = states('sensor.sigen_inverter_battery_state_of_charge') | float(default=0) %}
@@ -303,10 +307,11 @@ sensor:
           {{ ns.pick }}          
 #
       trader_spare_solar:
-        friendly_name: "Current Spare Solar"
+        friendly_name: "Current spare solar"
         unit_of_measurement: "kW"
         unique_id: trader_spare_solar
         icon_template: "mdi:solar-power"
+        device_class: power
         value_template: >
           {% set curtailed = states('sensor.trader_curtailed_solar_estimate')|float(default=-0.1) %}
           {% set pv_kw = states('sensor.sigen_plant_pv_power') | float(default=0) %}
@@ -327,7 +332,7 @@ sensor:
           {{ spare | round(1) }}
 #
       trader_battery_discharge_rate_chosen_from_plan:
-        friendly_name: "Export Discharge Rate based on plan"
+        friendly_name: "Export discharge rate based on plan"
         unique_id: trader_battery_discharge_rate_chosen_from_plan
         unit_of_measurement: "kW"
         icon_template: "mdi:transmission-tower-export"
@@ -346,36 +351,40 @@ sensor:
           {{limit | float}}
 #
       trader_stop_at_soc:
-        friendly_name: "Export Discharge SOC based on plan"
+        friendly_name: "Export discharge SOC based on plan"
         unique_id: trader_stop_at_soc
         unit_of_measurement: "%"
         icon_template: "mdi:percent"
+        device_class: battery
         value_template: >
           {% set option_letter = states('sensor.trader_plan_letter')  %}
           {{ states('input_number.trader_soc_sell_to_' + option_letter) | int(default=0) }}
 
       trader_buy_price:
-        friendly_name: "Amber Buy Price"
+        friendly_name: "Amber buy price"
         unique_id: trader_buy_price
         unit_of_measurement: cents
         icon_template: "mdi:cash"
+        device_class: monetary
         value_template: >
           {% set mult = state_attr('sensor.my_amber_buy_price_sensor', 'multiplier') |int(1) %}
           {{ states(states('sensor.my_amber_buy_price_sensor')) | float(default=999) * mult }}
 
       trader_sell_price:
-        friendly_name: "Amber Sell Price"
+        friendly_name: "Amber sell price"
         unique_id: trader_sell_price
         unit_of_measurement: cents
         icon_template: "mdi:cash-refund"
+        device_class: monetary
         value_template: >
           {% set mult = state_attr('sensor.my_amber_buy_price_sensor', 'multiplier') | int(1) %}
           {{ states(states('sensor.my_amber_sell_price_sensor'))| float(default=-999) * mult }}
 
       trader_curtailed_solar_estimate:
-        friendly_name: "Curtailed Solar Estimate"
+        friendly_name: "Curtailed solar estimate"
         unique_id: trader_curtailed_solar_estimate
         unit_of_measurement: kW
+        device_class: power
         icon_template: "mdi:solar-power"
         value_template: >
           {% set curtailed = states(states('sensor.my_curtailed_solar_sensor'))|float(default=-0.1) %}
