@@ -238,6 +238,67 @@ sections:
       - type: entities
         entities:
           - entity: input_boolean.trader_toggle_plans_section_visibility_on_dashboard
+            name: Show battery selling plans
+            icon: mdi:toggle-switch-variant
+          - entity: >-
+              input_boolean.trader_toggle_preserve_section_visibility_on_dashboard
+            icon: mdi:toggle-switch-variant
+            name: Show battery preserve options
+  - type: grid
+    cards:
+      - type: heading
+        heading: Battery Preservation at low and or high SOCs
+        heading_style: title
+        icon: mdi:battery-30
+        badges: []
+      - type: entities
+        entities:
+          - entity: input_boolean.trader_enable_low_battery_preserve
+            name: Enable lower limit
+            icon: mdi:arrow-collapse-up
+          - entity: input_number.trader_battery_preserve_lower_soc
+            name: Remain at/above
+          - entity: input_number.trader_battery_default_discharge_to_soc
+            name: Default discharge to
+          - entity: sensor.sigen_plant_discharge_cut_off_soc
+            name: Sig is set to
+        grid_options:
+          columns: 15
+          rows: auto
+        card_mod:
+          style: >
+            ha-card {  {% if
+            is_state('input_boolean.trader_enable_low_battery_preserve','on') %}
+              border-color: yellow;
+              border-width: 8px;
+            {%endif%} }
+      - type: entities
+        entities:
+          - entity: input_boolean.trader_enable_high_battery_preserve
+            name: Enabled upper limit
+            icon: mdi:arrow-expand-down
+          - entity: input_number.trader_battery_preserve_upper_soc
+            name: Remain at/under
+          - entity: input_number.trader_battery_default_charge_to_soc
+            name: Default charge to
+          - entity: sensor.sigen_plant_charge_cut_off_soc
+            name: Sig is set to
+        grid_options:
+          columns: 15
+          rows: auto
+        card_mod:
+          style: >
+            ha-card {  {% if
+            is_state('input_boolean.trader_enable_high_battery_preserve','on')
+            %}
+              border-color: yellow;
+              border-width: 8px;
+            {%endif%} }
+    column_span: 6
+    visibility:
+      - condition: state
+        entity: input_boolean.trader_toggle_preserve_section_visibility_on_dashboard
+        state: "on"
   - type: grid
     cards:
       - type: heading
@@ -369,7 +430,7 @@ sections:
       - type: entities
         entities:
           - entity: binary_sensor.trader_exporting_criteria_met
-        title: No Plan (Plan Z)
+        title: No plan (plan Z)
         card_mod:
           style: |
             ha-card {  {% if is_state('sensor.trader_plan_letter','z') %}
@@ -424,7 +485,7 @@ sections:
           - entity: input_number.trader_charge_from_grid_price
             name: Priced under
           - entity: binary_sensor.trader_charge_from_grid_price_met
-        title: Charge from Grid
+        title: Charge from grid
         card_mod:
           style: >
             ha-card {  {% if
@@ -450,7 +511,7 @@ sections:
         entities:
           - input_boolean.trader_divert_solar_enabled
           - input_number.trader_solar_divert_sell_price
-        title: Excess Solar Exports
+        title: Excess solar exports
         card_mod:
           style: >
             ha-card {  {% if
@@ -462,9 +523,12 @@ sections:
             {%endif%} }
       - type: entities
         entities:
-          - input_boolean.trader_enable_auto_change_export_limit
-          - input_boolean.trader_increase_export_rate_by_solar
-          - input_boolean.trader_enable_auto_selling_from_battery
+          - entity: input_boolean.trader_enable_auto_change_export_limit
+            name: Enable export limit changes
+          - entity: input_boolean.trader_increase_export_rate_by_solar
+            name: Increase export limit by available solar
+          - entity: input_boolean.trader_enable_auto_selling_from_battery
+            name: Enable exports
         title: Settings
       - type: custom:power-flow-card-plus
         title: Limits set now
@@ -522,6 +586,7 @@ sections:
             - binary_sensor.trader_sell_price_is_negative
             - binary_sensor.trader_buy_price_is_negative
             - number.sigen_plant_grid_import_limitation
+          label_id: trader
         grid_options:
           columns: 45
           rows: auto
@@ -589,3 +654,8 @@ badges:
     state_content:
       - state
       - last_updated
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: sensor.sigen_inverter_battery_state_of_charge
