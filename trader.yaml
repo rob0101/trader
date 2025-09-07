@@ -133,10 +133,31 @@ input_number:
     name: Battery sell rate Z
     <<: *shared3
 
+  trader_battery_preserve_upper_soc:
+    name: Battery Preserve Up To SOC
+    <<: &shared4
+      min: 0
+      max: 100
+      step: 1
+      mode: box
+      unit_of_measurement: percent
+      icon: 'mdi:percent'
 
+
+  trader_battery_preserve_lower_soc:
+    name: Battery Preserve Down To SOC
+    <<: *shared4
+
+  trader_battery_default_charge_to_soc:
+    name: Battery Default Charge To SOC
+    <<: *shared4
+
+  trader_battery_default_discharge_to_soc:
+    name: Battery Default Discharge To SOC
+    <<: *shared4
 
 #####################
-# Sell price triggers enabled/disabled
+# On/off settings
 #####################
 
 input_boolean:
@@ -164,6 +185,16 @@ input_boolean:
 
   trader_toggle_plans_section_visibility_on_dashboard:
     name: Toggle Plans Visibility
+
+  trader_enable_high_battery_preserve:
+    name: Enable High Battery Preserve
+
+  trader_enable_low_battery_preserve:
+    name: Enable Low Battery Preserve
+
+#####################
+# Binary Sensors
+#####################
 
 binary_sensor:
   - platform: template
