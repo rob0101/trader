@@ -140,7 +140,7 @@ input_number:
       max: 100
       step: 1
       mode: box
-      unit_of_measurement: percent
+      unit_of_measurement: '%'
       icon: 'mdi:percent'
 
 
