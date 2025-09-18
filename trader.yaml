@@ -133,6 +133,10 @@ input_number:
     name: Battery sell rate Z
     <<: *shared3
 
+############
+# helpers to implement upper and lower battery SOC levels to implement battery preservation
+############
+
   trader_battery_preserve_upper_soc:
     name: Battery Preserve Up To SOC
     <<: &shared4
@@ -142,7 +146,6 @@ input_number:
       mode: box
       unit_of_measurement: '%'
       icon: 'mdi:percent'
-
 
   trader_battery_preserve_lower_soc:
     name: Battery Preserve Down To SOC
@@ -155,6 +158,66 @@ input_number:
   trader_battery_default_discharge_to_soc:
     name: Battery Default Discharge To SOC
     <<: *shared4
+
+###########
+# helpers to store 5m and 30m import and export costs/earnings
+#  requires an automation to run every 5m to update costs.
+###########
+
+  trader_last_exports_lifetime:
+    name: Last exports lifetime
+    <<: &shared7
+      unit_of_measurement: KWh
+      mode: box
+      max: 9999999
+      min: 0
+
+  trader_last_imports_lifetime:
+    name: Last imports lifetime
+    <<: *shared7
+
+  trader_last_exports_energy:
+    name: Last exports energy
+    <<: *shared7
+
+  trader_last_imports_energy:
+    name: Last imports energy  
+    <<: *shared7
+
+  trader_last_5m_imports_cost:
+    name: Last 5m imports cost
+    <<: &shared5
+      unit_of_measurement: cents
+      mode: box
+      initial: 0
+      max: 10000
+      min: -1000
+
+  trader_last_5m_exports_earnings:
+    name: Last 5m exports earnings
+    <<: *shared5
+
+  trader_last_30m_imports_cost:
+    name: Last 30m imports cost
+    <<: &shared6
+      unit_of_measurement: cents
+      mode: box
+      initial: 0
+      max: 60000
+      min: -6000
+
+  trader_last_30m_exports_earnings:
+    name: Last 30m exports earnings  
+    <<: *shared6
+
+  trader_last_30m_imports_running_cost:
+    name: Last 30m imports running cost  
+    <<: *shared6
+
+  trader_last_30m_exports_running_earnings:
+    name: Last 30m exports running earnings  
+    <<: *shared6
+
 
 #####################
 # On/off settings
