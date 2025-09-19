@@ -1,0 +1,38 @@
+type: custom:apexcharts-card
+layout_options:
+  grid_columns: 12
+  grid_rows: 8
+experimental:
+  disable_config_validation: true
+apex_config:
+  legend:
+    show: true
+  chart:
+    height: 350px
+  plotOptions:
+    bar:
+      columnWidth: 10
+      borderRadius: 0
+header:
+  show: true
+  title: Import / Export costs and earnings (5m)
+  colorize_states: true
+  show_states: true
+graph_span: 8h
+update_interval: 1min
+series:
+  - entity: input_number.trader_last_5m_imports_cost
+    name: Imports
+    color: 1086ff
+    type: column
+    unit: cents
+    opacity: 1
+    stroke_width: 0
+  - entity: input_number.trader_last_5m_exports_earnings
+    name: Exports
+    color: ffc624
+    opacity: 1
+    type: column
+    unit: cents
+    stroke_width: 0
+    transform: return x *-1
