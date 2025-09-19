@@ -7,6 +7,7 @@
 - run the Sig system in Remote EMS mode ***
 - have the File Editor add-on
 - have power-flow-card and card-mod installed (HACS)
+- have apex charts installed if you want to use example graphs
 - be confident to have a go and assume all the risks of installing the files provided
 
 *** as of August 2025 if you change from VPP mode (Amber) to Remote EMS mode (Home Assistant) there's no easy way to switch back to VPP mode. Amber are working on a fix. In the meantime you have to ask Amber to re-enable VPP mode.
