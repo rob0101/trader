@@ -7,6 +7,7 @@
 - run the Sig system in Remote EMS mode ***
 - have the File Editor add-on
 - have power-flow-card and card-mod installed (HACS)
+- have apex charts installed if you want to use example graphs
 - be confident to have a go and assume all the risks of installing the files provided
 
 *** as of August 2025 if you change from VPP mode (Amber) to Remote EMS mode (Home Assistant) there's no easy way to switch back to VPP mode. Amber are working on a fix. In the meantime you have to ask Amber to re-enable VPP mode.
@@ -110,4 +111,7 @@ Various automated system such as Amber's Smartshift offer "preserve" modes desig
 ### Automations
 
 I've included (or will include) some example automations.  Create a new automation, edit it in yaml and paste the example file.  You then customise that automation via the friendly UI to suit your own needs.
+
+Here's an apex charts view of 5m interval imports (blue) and exports (yellow). Above the axis is a cost, below is a negative cost (earnings).
+![Screenshot 2025-09-19 at 10 59 41 am](https://github.com/user-attachments/assets/8214283e-cd6d-4d0e-a9df-a9b6735ef230)
 
