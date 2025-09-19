@@ -22,8 +22,8 @@ actions:
         float(new_imports) }}
       five_m_exports: "{{ new_exports - old_exports }}"
       five_m_imports: "{{ new_imports - old_imports }}"
-      costs: "{{ five_m_imports * buy_price | float }}"
-      earnings: "{{ five_m_exports * sell_price |float }}"
+      costs: "{{ five_m_imports|float * buy_price| float }}"
+      earnings: "{{ five_m_exports|float * sell_price|float }}"
       hour: "{{ now().hour |int}}"
       minute: "{{ now().minute |int}}"
   - target:
@@ -60,14 +60,15 @@ actions:
       entity_id: input_number.trader_last_30m_imports_running_cost
     data:
       value: >-
-        {{ (costs + states('input_number.trader_last_30m_imports_running_cost')
-        | float(0)) | round(2) }}
+        {{ (costs|float +
+        states('input_number.trader_last_30m_imports_running_cost') | float(0))
+        | round(2) }}
     action: input_number.set_value
   - target:
       entity_id: input_number.trader_last_30m_exports_running_earnings
     data:
       value: >-
-        {{ (earnings +
+        {{ (earnings|float +
         states('input_number.trader_last_30m_exports_running_earnings') |
         float(0)) | round(2) }}
     action: input_number.set_value
