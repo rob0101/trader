@@ -111,3 +111,6 @@ Various automated system such as Amber's Smartshift offer "preserve" modes desig
 
 I've included (or will include) some example automations.  Create a new automation, edit it in yaml and paste the example file.  You then customise that automation via the friendly UI to suit your own needs.
 
+Here's an ape charts view of 5m interval imports (blue) and exports (yellow). Above the axis is a cost, below is a negative cost (earnings).
+![Screenshot 2025-09-19 at 10 59 41 am](https://github.com/user-attachments/assets/8214283e-cd6d-4d0e-a9df-a9b6735ef230)
+
