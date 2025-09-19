@@ -1,0 +1,102 @@
+alias: Update Costs and Earnings Every 5 Minutes
+description: Calculates and updates 5m and 30m energy, costs and earnings.
+triggers:
+  - minutes: /5
+    trigger: time_pattern
+conditions: []
+actions:
+  - variables:
+      new_exports: >-
+        {{ states('sensor.sigen_plant_accumulated_grid_export_energy') | float *
+        1000 }}
+      new_imports: >-
+        {{ states('sensor.sigen_plant_accumulated_grid_import_energy') | float *
+        1000 }}
+      buy_price: "{{ states('sensor.trader_buy_price') | int }}"
+      sell_price: "{{ states('sensor.trader_sell_price') | int }}"
+      old_exports: >-
+        {{ states('input_number.trader_last_exports_lifetime') |
+        float(new_exports) }}
+      old_imports: >-
+        {{ states('input_number.trader_last_imports_lifetime') |
+        float(new_imports) }}
+      five_m_exports: "{{ new_exports - old_exports }}"
+      five_m_imports: "{{ new_imports - old_imports }}"
+      costs: "{{ five_m_imports * buy_price | float }}"
+      earnings: "{{ five_m_exports * sell_price |float }}"
+      hour: "{{ now().hour |int}}"
+      minute: "{{ now().minute |int}}"
+  - target:
+      entity_id: input_number.trader_last_exports_lifetime
+    data:
+      value: "{{ new_exports }}"
+    action: input_number.set_value
+  - target:
+      entity_id: input_number.trader_last_imports_lifetime
+    data:
+      value: "{{ new_imports }}"
+    action: input_number.set_value
+  - target:
+      entity_id: input_number.trader_last_exports_energy
+    data:
+      value: "{{ five_m_exports | round(4) }}"
+    action: input_number.set_value
+  - target:
+      entity_id: input_number.trader_last_imports_energy
+    data:
+      value: "{{ five_m_imports | round(4) }}"
+    action: input_number.set_value
+  - target:
+      entity_id: input_number.trader_last_5m_imports_cost
+    data:
+      value: "{{ costs | round(2) }}"
+    action: input_number.set_value
+  - target:
+      entity_id: input_number.trader_last_5m_exports_earnings
+    data:
+      value: "{{ earnings | round(2) }}"
+    action: input_number.set_value
+  - target:
+      entity_id: input_number.trader_last_30m_imports_running_cost
+    data:
+      value: >-
+        {{ (costs + states('input_number.trader_last_30m_imports_running_cost')
+        | float(0)) | round(2) }}
+    action: input_number.set_value
+  - target:
+      entity_id: input_number.trader_last_30m_exports_running_earnings
+    data:
+      value: >-
+        {{ (earnings +
+        states('input_number.trader_last_30m_exports_running_earnings') |
+        float(0)) | round(2) }}
+    action: input_number.set_value
+  - if:
+      - condition: template
+        value_template: "{{ minute == 0 or minute == 30 }}"
+    then:
+      - target:
+          entity_id: input_number.trader_last_30m_exports_earnings
+        data:
+          value: >-
+            {{ states('input_number.trader_last_30m_exports_running_earnings') |
+            float(0) | round(2) }}
+        action: input_number.set_value
+      - target:
+          entity_id: input_number.trader_last_30m_imports_cost
+        data:
+          value: >-
+            {{ states('input_number.trader_last_30m_imports_running_cost') |
+            float(0) | round(2) }}
+        action: input_number.set_value
+      - target:
+          entity_id: input_number.trader_last_30m_imports_running_cost
+        data:
+          value: 0
+        action: input_number.set_value
+      - target:
+          entity_id: input_number.trader_last_30m_exports_running_earnings
+        data:
+          value: 0
+        action: input_number.set_value
+mode: single
