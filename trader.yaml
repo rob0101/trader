@@ -407,9 +407,9 @@ sensor:
           {% set enabled = is_state('input_boolean.trader_increase_export_rate_by_solar', 'on') %}
           {% set positive_fit = is_state('binary_sensor.trader_sell_price_is_negative', 'off') %}
           {% if enabled and positive_fit %}
-            {% set limit = (new_kw + spare_solar) | float | round(1) %}
+            {% set limit = (new_kw + spare_solar) | float | round(2) %}
           {% else %}
-            {% set limit = new_kw | float | round (1) %}
+            {% set limit = new_kw | float | round (2) %}
           {% endif %}
           {{limit | float}}
 #
