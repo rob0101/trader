@@ -148,11 +148,15 @@ template:
     - unique_id: trader_preferred_mode
       default_entity_id: sensor.trader_mode
       name: Preferred mode
-      state: "{% set negative_buy = is_state('binary_sensor.trader_buy_price_is_negative', 'on') %}
+      state: "
+          {% set negative_buy = is_state('binary_sensor.trader_buy_price_is_negative', 'on') %}
+          {% set force_charge = is_state('input_boolean.trader_force_charge', 'on') %}
           {% if is_state('binary_sensor.trader_exporting_criteria_met', 'on') %}
           Command Discharging (PV First)
           {% else %}
             {% if negative_buy %}
+          Command Charging (Grid First)
+           {% elif force_charge %}
           Command Charging (PV First)
             {% else %}
           Maximum Self Consumption
@@ -448,5 +452,8 @@ input_boolean:
 
   trader_enable_low_battery_preserve:
     name: Enable Low Battery Preserve
+
+  trader_force_charge:
+    name: Force Charge
 
 
